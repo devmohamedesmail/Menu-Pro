@@ -1,0 +1,52 @@
+<?php
+namespace App\Http\Controllers\admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Role;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+
+class UsersController extends Controller
+{
+
+    public function show_users()
+    {
+        try {
+            $roles = Role::all();
+            $users = User::with('role')->get();
+            return Inertia::render("admin/users/index", ["users" => $users, "roles" => $roles]);
+        } catch (\Throwable $th) {
+            return Inertia::render("admin/404/index", ["error" => $th->getMessage()]);
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $validated = $request->validate([
+                'name'  => 'required|string|max:255',
+                'email' => 'required|email|max:255|unique:users,email,' . $id,
+                'role'  => 'required|in:user,admin,manager,store_owner',
+            ]);
+
+            $user = User::findOrFail($id);
+            $user->update($validated);
+
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            return Inertia::render("admin/404/index", ["error" => $th->getMessage()]);
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+            $user = User::findOrFail($id);
+            $user->delete();
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            return Inertia::render("admin/404/index", ["error" => $th->getMessage()]);
+        }
+    }
+}
