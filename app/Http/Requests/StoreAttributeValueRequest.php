@@ -11,7 +11,7 @@ class StoreAttributeValueRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class StoreAttributeValueRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "attribute_id"=> "required|number",
+            "meal_id"=> "required|number",
+            "value"=> "required",
+            "price"=> "required",
         ];
     }
 }

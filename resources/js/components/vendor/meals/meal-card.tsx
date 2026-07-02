@@ -4,11 +4,14 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Edit, Plus, Trash2 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import MealAttributeDialog from './meal-attribute-dialog'
+import MealDeleteDialog from './meal-delete-dialog'
 
 export default function MealCard({ meal, country, setEditingMeal, setMealDialogOpen, handleDeleteMeal, attributes }: any) {
     const { t, i18n } = useTranslation()
     const isArabic = i18n.language === 'ar'
     const [attrDialogOpen, setAttrDialogOpen] = useState(false)
+    const [deleteDialogOpen, setdeleteDialogOpen] = useState(false)
+    const [deleteItem, setDeleteItem] = useState(null)
 
     return (
         <>
@@ -67,7 +70,11 @@ export default function MealCard({ meal, country, setEditingMeal, setMealDialogO
                         <Button
                             size="sm"
                             variant="destructive"
-                            onClick={() => handleDeleteMeal(meal.id)}
+                            // onClick={() => handleDeleteMeal(meal.id)}
+                            onClick={() => {
+                                setDeleteItem(meal)
+                                setdeleteDialogOpen(true)
+                            }}
                         >
                             <Trash2 className="w-3 h-3" />
                         </Button>
@@ -93,6 +100,13 @@ export default function MealCard({ meal, country, setEditingMeal, setMealDialogO
                 onClose={() => setAttrDialogOpen(false)}
                 meal={meal}
                 attributes={attributes}
+            />
+
+            <MealDeleteDialog
+                open={deleteDialogOpen}
+                setdeleteDialogOpen={setdeleteDialogOpen}
+                onClose={() => setdeleteDialogOpen(false)}
+                meal={meal}
             />
         </>
     )

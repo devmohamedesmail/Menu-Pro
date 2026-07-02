@@ -57,6 +57,7 @@ export default function MenuPage({ store, categories, country, meals, table }: M
                     setViewMode={setViewMode}
                     viewMode={viewMode}
                 />
+                
 
                 <MealsSection
                     filteredMeals={filteredMeals}

@@ -16,8 +16,7 @@ class StoreService
 
     public function createStore(array $data)
     {
-        // Upload image to Cloudinary
-        // Upload image if exists
+        
         if (isset($data['image'])) {
             $data['image'] = $this->uploadToCloudinary(
                 $data['image'],
