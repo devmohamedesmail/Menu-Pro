@@ -376,7 +376,12 @@
         "verify": "توثيق",
         "unverify": "إلغاء التوثيق",
         "add_to_order": "أضف إلى الطلب",
-        "address": " العنوان "
+        "address": " العنوان ",
+        "browse-categories": " تصفح الاقسام ",
+        "browse-meals": " تصفح وجباتنا المميزة ",
+        "success":" تم بنجاح ",
+        "error_happened":" حدث خطا حاول مرة اخري ",
+         "invalid-email":"البريد الإلكتروني غير صحيح"
     },
     "countries": {
         "title": " إدارة الدول ",
@@ -469,6 +474,7 @@
     "stores": {
         "title": "إدارة المتاجر",
         "description": "عرض وإدارة جميع المتاجر",
+        "update-description":" تحديث بيانات متجرك ",
         "add-store": "إضافة متجر جديد",
         "edit-store": "تعديل المتجر",
         "delete-store": "حذف المتجر",
@@ -580,6 +586,7 @@
         "add_to_order": "  اضف الي الطلب ",
         "welcome_to": "مرحبا بكم في",
         "table": "طاولة",
+        "on-table": "  علي طاولة ",
         "order_placed_successfully": " تم ارسال الطلب بنجاح ",
         "all": "الكل",
         "all_meals": "جميع الوجبات",
@@ -590,7 +597,17 @@
         "customizable": "قابل للتخصيص",
         "required": "مطلوب",
         "includes_extras": "يشمل الإضافات",
-        "select_your_choices": "اختر خياراتك"
+        "select_your_choices": "اختر خياراتك",
+        "welcome-title": " مرحبا بك في مطعمنا ",
+        "search_for_meal": " ابحث عن وجباتك المفضلة ",
+        "meals_count": " عدد الوجبات ",
+        "call-waiter": " نداء الجرسون ",
+        "select_option": " حدد اختياراتك ",
+        "cart_empty": " انت مازلت لم تضف طلبك ",
+        "order-sent-success": " تم ارسال طلبك بنجاح ",
+        "order-sent-failed": " فشل ارسال الطلب حاول مرة اخري ",
+        "why-call-waiter": " لماذا تريد الجرسون ؟ ",
+        "send": " ارسل طلبك "
     },
     "tables": {
         "add-table": "أضافة طاولة",
@@ -808,5 +825,8 @@
             "popular": "الأكثر استخداماً",
             "new": "جديد"
         }
+    },
+    "validation": {
+        "is-required": " هذا الحقل مطلوب "
     }
 }

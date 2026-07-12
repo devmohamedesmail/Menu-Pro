@@ -2,7 +2,7 @@
 import { TabsContent } from '@/components/ui/tabs'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { ShoppingBag,Clock,CheckCircle2,XCircle} from 'lucide-react'
-import EmptyState from '@/components/vendor/empty-state'
+import EmptyState from '@/components/ui/empty-state'
 import { useTranslation } from 'react-i18next'
 import OrderCard from '@/components/vendor/orders/order-card'
 

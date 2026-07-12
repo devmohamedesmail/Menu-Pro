@@ -378,7 +378,12 @@
         "verify": "Verify",
         "unverify": "Unverify",
         "add_to_order": "Add to Order",
-        "address": "Address"
+        "address": "Address",
+        "browse-categories":"Browse Our Categories",
+        "browse-meals":"Browse Our Meals",
+        "success":"Done Successfully",
+        "error_happened":"Error Happened , Try Again",
+        "invalid-email":"Invalid email address"
     },
     "countries": {
         "title": "Countries Management",
@@ -471,6 +476,7 @@
     "stores": {
         "title": "Stores Management",
         "description": "View and manage all stores",
+        "update-description":"Update Your Store Information",
         "add-store": "Add New Store",
         "edit-store": "Edit Store",
         "delete-store": "Delete Store",
@@ -582,6 +588,7 @@
         "add_to_order": "Add To Order",
         "welcome_to": "Welcome to",
         "table": "Table",
+        "on-table":"On Table",
         "order_placed_successfully": "Order placed successfully",
         "all": "All",
         "all_meals": "All Meals",
@@ -592,7 +599,17 @@
         "customizable": "Customizable",
         "required": "Required",
         "includes_extras": "includes extras",
-        "select_your_choices": "Select Your Choices"
+        "select_your_choices": "Select Your Choices",
+        "welcome-title":"Welcome To Our Resturant",
+        "search_for_meal":"Search For Your Favourite Meals",
+        "meals_count":"Meal Count",
+        "call-waiter":"Call Waiter",
+        "select_option":"Select Option",
+        "cart_empty" :" You Still Not Add Anything To Your Order ",
+        "order-sent-success":"Your Order Sent Successfully",
+        "order-sent-failed":"Your Order Failed To Sent",
+        "why-call-waiter":"Why Call Waiter ?",
+        "send":"Send Your Request"
     },
     "tables": {
         "add-table": "Add Table",
@@ -810,5 +827,8 @@
             "popular": "Popular",
             "new": "New"
         }
+    },
+    "validation":{
+        "is-required":"This Field is required"
     }
 }

@@ -22,15 +22,15 @@ class StoreStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-             'user_id'     => 'required|exists:users,id',
-                'country_id'  => 'required|exists:countries,id',
-                'name'        => 'required|string|max:255',
-                'email'       => 'nullable|email|max:255',
-                'phone'       => 'nullable|string|max:255',
-                'address'     => 'nullable|string|max:500',
-                'description' => 'nullable|string',
-                'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'banner'      => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'user_id'     => 'required|exists:users,id',
+            'country_id'  => 'required|exists:countries,id',
+            'name'        => 'required|string|max:255',
+            'email'       => 'nullable|email|max:255',
+            'phone'       => 'nullable|string|max:255',
+            'address'     => 'nullable|string|max:500',
+            'description' => 'nullable|string',
+            'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'banner'      => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 }

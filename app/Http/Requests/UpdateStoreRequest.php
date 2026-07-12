@@ -11,7 +11,7 @@ class UpdateStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,14 @@ class UpdateStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'country_id'  => 'required|exists:countries,id',
+            'name'        => 'required|string|max:255',
+            'email'       => 'nullable|email|max:255',
+            'phone'       => 'nullable|string|max:255',
+            'address'     => 'nullable|string|max:500',
+            'description' => 'nullable|string',
+            'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'banner'      => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 }

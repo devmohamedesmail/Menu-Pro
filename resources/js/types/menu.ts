@@ -25,6 +25,7 @@ export interface MealAttribute {
     name_en: string;
     name_ar: string;
     values: AttributeValue[];
+    attribute_values: AttributeValue[];
 }
 
 export interface Meal {
@@ -39,6 +40,8 @@ export interface Meal {
     category_id: number;
     is_popular?: number | boolean;
     attributes?: MealAttribute[];
+    is_simple?:boolean;
+    is_featured?:boolean
 }
 
 export interface Store {
@@ -53,10 +56,14 @@ export interface Store {
     is_verified: number;
 }
 
+interface MealsResponse{
+    data:Meal[]
+}
+
 export interface MenuPageProps {
     store: Store;
     categories: Category[];
     country: Country;
-    meals: Meal[];
+    meals: MealsResponse;
     table: string;
 }

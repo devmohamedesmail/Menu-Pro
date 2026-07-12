@@ -9,6 +9,7 @@ use App\Models\AttributeValue;
 use App\Models\Meal;
 use App\Models\MealAttribute;
 use App\Models\Store;
+use App\Services\CloudinaryService;
 use App\Traits\UploadsToCloudinary;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,10 +19,7 @@ class MealService
     /**
      * Create a new class instance.
      */
-    public function __construct()
-    {
-        //
-    }
+    public function __construct(protected CloudinaryService $cloudinaryService){}
 
     public function store(StoreMealRequest $request)
     {
@@ -29,8 +27,7 @@ class MealService
         $store = Store::where('user_id', $user->id)->first();
         $data = $request->validated();
 
-
-        $imagePath = $this->uploadToCloudinary($data->file('image'), 'meals');
+        $imagePath = $this->cloudinaryService->uploadToCloudinary($request->file('image'), 'meals');
 
         $meal = $store->meals()->create([
             'category_id'    => $data['category_id'],
@@ -44,16 +41,16 @@ class MealService
         ]);
 
         // Handle attributes
-        if ($data->has('attributes')) {
-            $attributes = json_decode($data->input('attributes'), true);
-            if (is_array($attributes)) {
-                foreach ($attributes as $attributeId => $valueId) {
-                    $meal->attributes()->attach($attributeId, [
-                        'attribute_value_id' => $valueId,
-                    ]);
-                }
-            }
-        }
+        // if ($data->has('attributes')) {
+        //     $attributes = json_decode($data->input('attributes'), true);
+        //     if (is_array($attributes)) {
+        //         foreach ($attributes as $attributeId => $valueId) {
+        //             $meal->attributes()->attach($attributeId, [
+        //                 'attribute_value_id' => $valueId,
+        //             ]);
+        //         }
+        //     }
+        // }
 
         return $meal;
     }

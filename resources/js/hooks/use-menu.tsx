@@ -13,8 +13,8 @@ export default function useMenu({ meals }: any) {
     const isAnimating = useRef(false);
     const pendingCategoryRef = useRef<number | null | undefined>(undefined);
     const filteredMeals = selectedCategory
-        ? meals.filter((m: any) => m.category_id === selectedCategory)
-        : meals;
+        ? meals.data.filter((m: any) => m.category_id === selectedCategory)
+        : meals.data;
 
     // ── Animate cards IN after state change ──────────────────────────────────
     useEffect(() => {

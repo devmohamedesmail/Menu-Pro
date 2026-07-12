@@ -22,6 +22,8 @@ return new class extends Migration
             $table->longText('image')->nullable();
             $table->decimal('price',10,2)->nullable();
             $table->decimal('sale_price',10,2)->nullable();
+            $table->boolean('is_featured')->default(false);
+            $table->boolean('is_simple')->default(true);
             $table->timestamps();
         });
     }

@@ -10,9 +10,10 @@ import AuthLayout from '@/layouts/auth-layout';
 import { login } from '@/routes';
 import { store } from '@/routes/register';
 import { useTranslation } from 'react-i18next';
-import Footer from '@/components/landing/footer';
-import Header from '@/components/landing/header';
+
 import { Eye, EyeOff, KeyRound, Mail, User } from 'lucide-react';
+import NavBar from '../Public/Home/components/nav-bar';
+import Footer from '@/components/shared/footer';
 
 export default function Register() {
     const { t } = useTranslation();
@@ -20,7 +21,7 @@ export default function Register() {
 
     return (
         <div>
-            <Header />
+            <NavBar />
             <AuthLayout
                 title={t('auth.create-account')}
                 description={t('auth.fill-details')}
@@ -132,7 +133,7 @@ export default function Register() {
                     )}
                 </Form>
             </AuthLayout>
-            <Footer />
+          <Footer />
         </div>
     );
 }

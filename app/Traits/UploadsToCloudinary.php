@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Log;
 
 trait UploadsToCloudinary
 {
-    protected function uploadToCloudinary($file, string $folder): string
+    protected function uploadToCloudinary($file, string $folder): ?string
     {
         try {
             $cloudinary = new Cloudinary([
@@ -26,7 +26,7 @@ trait UploadsToCloudinary
 
         } catch (\Exception $e) {
             Log::error('Cloudinary upload failed: ' . $e->getMessage());
-            throw new \Exception('Image upload failed');
+            return null;
         }
     }
 }

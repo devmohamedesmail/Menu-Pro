@@ -19,6 +19,8 @@ class Meal extends Model
         'image',
         'price',
         'sale_price',
+        'is_featured',
+        'is_simple'
     ];
 
     public function category()
@@ -30,16 +32,6 @@ class Meal extends Model
     {
         return $this->belongsTo(Store::class);
     }
-
-    // public function attributeValues()
-    // {
-    //     return $this->hasMany(AttributeValue::class)->with('attribute');
-    // }
-
-    // public function attributes()
-    // {
-    //     return $this->belongsToMany(Attribute::class, 'meal_attributes');
-    // }
 
     public function attributeValues()
     {

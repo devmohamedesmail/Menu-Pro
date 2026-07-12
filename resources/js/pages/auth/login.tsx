@@ -12,9 +12,9 @@ import { register } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
 import { useTranslation } from 'react-i18next';
-import Header from '@/components/landing/header';
-import Footer from '@/components/landing/footer';
+import Footer from '@/components/shared/footer';
 import { Eye, EyeOff, KeyRound, Mail } from 'lucide-react';
+import NavBar from '../Public/Home/components/nav-bar';
 
 type Props = {
     status?: string;
@@ -29,7 +29,7 @@ export default function Login({ status, canResetPassword, canRegister }: Props) 
     return (
         <div>
             <Head title={t('auth.login')} />
-            <Header />
+            <NavBar />
 
             <AuthLayout
                 title={t('auth.login-to-account')}

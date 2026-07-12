@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignId('meal_id')->constrained()->cascadeOnDelete();
             $table->string('value');
             $table->decimal('price',8,2)->default(0);
+            $table->integer("display_order")->nullable();
+            $table->boolean("is_default")->default(false);
             $table->timestamps();
         });
     }

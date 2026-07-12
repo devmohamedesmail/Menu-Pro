@@ -5,7 +5,9 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Link } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
-import { ShoppingBag, UtensilsCrossed, ListFilter, QrCode } from 'lucide-react';
+import { ShoppingBag, UtensilsCrossed, ListFilter, QrCode, MonitorCog, Wallet } from 'lucide-react';
+import i18n from '@/i18n';
+import { MdMoney } from 'react-icons/md';
 
 
 function StatsCard({ title, value, icon, className }: any) {
@@ -35,13 +37,15 @@ interface OverviewTabProps {
         totalCategories: number;
     };
     country: {
-        currency_symbol: string;
+        currency_ar: string;
+        currency_en:string
     };
     orders: any[];
 }
 
-export default function OverviewTab({ stats, country,orders }: OverviewTabProps) {
+export default function OverviewTab({ stats, country, orders }: OverviewTabProps) {
     const { t } = useTranslation();
+    console.log(country)
     return (
         <TabsContent value="overview" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -53,8 +57,8 @@ export default function OverviewTab({ stats, country,orders }: OverviewTabProps)
                 />
                 <StatsCard
                     title={t('dashboard.total-revenue')}
-                    value={`${stats?.totalRevenue || 0} ${country?.currency_symbol || '$'}`}
-                    icon={<span className="text-xl font-bold text-green-500">$</span>}
+                    value={`${stats?.totalRevenue || 0} ${i18n.language === "ar" ? country?.currency_ar : country?.currency_en}`}
+                    icon={<Wallet  className="text-xl font-bold text-green-500" />}
                     className="bg-green-50 dark:bg-green-900/20 border-green-100 dark:border-green-800"
                 />
                 <StatsCard
@@ -72,7 +76,7 @@ export default function OverviewTab({ stats, country,orders }: OverviewTabProps)
             </div>
 
             {/* Recent Activity / Quick Actions could go here */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <Card className="md:col-span-2">
                     <CardHeader>
                         <CardTitle>{t('dashboard.recent-orders')}</CardTitle>
@@ -100,32 +104,8 @@ export default function OverviewTab({ stats, country,orders }: OverviewTabProps)
                     </CardContent>
                 </Card>
 
-                <Card>
-                    <CardHeader>
-                        <CardTitle>{t('dashboard.quick-actions')}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-3">
-                        <Button variant="outline" className="w-full justify-start" asChild>
-                            <Link href="#">
-                                <UtensilsCrossed className="w-4 h-4 mr-2" />
-                                {t('dashboard.add-new-meal')}
-                            </Link>
-                        </Button>
-                        <Button variant="outline" className="w-full justify-start" asChild>
-                            <Link href="#">
-                                <ListFilter className="w-4 h-4 mr-2" />
-                                {t('dashboard.add-new-category')}
-                            </Link>
-                        </Button>
-                        <Button variant="outline" className="w-full justify-start" asChild>
-                            <Link href="#">
-                                <QrCode className="w-4 h-4 mr-2" />
-                                {t('dashboard.generate-qr')}
-                            </Link>
-                        </Button>
-                    </CardContent>
-                </Card>
-            </div>
+               
+            </div> */}
         </TabsContent>
     )
 }
