@@ -7,16 +7,15 @@ import { Tabs } from '@/components/ui/tabs';
 import Header from '@/components/vendor/header';
 import TabsSection from '@/components/vendor/tabs-section';
 import OverviewTab from '@/components/vendor/overview-tab';
-import TableTab from '@/components/vendor/tables/table-tab';
-import OrdersTab from '@/components/vendor/orders/orders-tab';
-
-import CategoriesTab from '@/components/vendor/categories/categories-tab';
 import EditButton from '@/components/vendor/edit-button';
 import MealsTab from '../Meals/components/meals-tab';
+import CategoriesTab from '../Categories/components/categories-tab';
+import OrdersTab from '../Orders/components/orders-tab';
+import TableTab from '../Tables/components/table-tab';
 
 
 export default function Dashboard({store,categories,meals,country,orders,tables,attributes,stats}:any) {
-  console.log(categories)
+ 
   const { t } = useTranslation();
   if (!store) return null;
   return (
@@ -28,7 +27,7 @@ export default function Dashboard({store,categories,meals,country,orders,tables,
       <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue="overview" className="w-full space-y-6">
           <div className="flex items-center justify-between pb-4 overflow-x-auto">
-            <TabsSection />
+            <TabsSection store={store}/>
             <EditButton />
           </div>
 
@@ -37,10 +36,11 @@ export default function Dashboard({store,categories,meals,country,orders,tables,
             country={country}
             orders={orders}
           />
-          {/* <CategoriesTab
+          <CategoriesTab
             categories={categories}
             country={country}
-          /> */}
+          />
+          
           <MealsTab
             meals={meals}
             categories={categories}
@@ -49,7 +49,9 @@ export default function Dashboard({store,categories,meals,country,orders,tables,
           />
           <OrdersTab
             orders={orders}
+            store={store}
           />
+          
           <TableTab
             tables={tables}
             country={country}

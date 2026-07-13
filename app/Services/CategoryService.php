@@ -5,16 +5,12 @@ namespace App\Services;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Store;
-use App\Traits\UploadsToCloudinary;
 use Illuminate\Support\Facades\Auth;
 
 class CategoryService
 {
-    use UploadsToCloudinary;
-    public function __construct()
-    {
-        //
-    }
+    
+    public function __construct(protected CloudinaryService $cloudinaryService){}
 
 
 
@@ -22,17 +18,14 @@ class CategoryService
     {
         $user  = Auth::user();
         $store = Store::where('user_id', $user->id)->first();
-        if (!$store) {
-        }
-        $data = $request->validated();
-        $imagePath = $this->uploadToCloudinary($request->file('image'), 'categories');
-
+        if (!$store) {}
+        $imagePath = $this->cloudinaryService->uploadToCloudinary($request->file('image'), 'categories');
 
         $category = $store->categories()->create([
-            'name_en'  => $data['name_en'],
-            'name_ar'  => $data['name_ar'],
+            'name_en'  => $request['name_en'],
+            'name_ar'  => $request['name_ar'],
             'image'    => $imagePath,
-            'position' => $data['position'] ?? 0,
+            'position' => $request['position'] ?? 0,
         ]);
         return $category;
     }
@@ -44,16 +37,15 @@ class CategoryService
         $store    = Store::where('user_id', $user->id)->first();
         $category = $store->categories()->findOrFail($id);
 
-        $valid_data = $request->validated();
 
         $data = [
-            'name_en'  => $valid_data['name_en'],
-            'name_ar'  => $valid_data['name_ar'],
-            'position' => $valid_data['position'] ?? $category->position,
+            'name_en'  => $request['name_en'],
+            'name_ar'  => $request['name_ar'],
+            'position' => $request['position'] ?? $category->position,
         ];
 
         if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadToCloudinary($request->file('image'), 'categories');
+            $data['image'] = $this->cloudinaryService->uploadToCloudinary($request->file('image'), 'categories');
         }
 
         $category->update($data);

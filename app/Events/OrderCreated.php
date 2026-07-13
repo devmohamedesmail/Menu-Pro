@@ -7,19 +7,16 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class OrderCreated
+class OrderCreated implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
      
 
-    public $order;
-    /**
-     * Create a new event instance.
-     */
-    public function __construct()
+    public function __construct(public $order)
     {
         //
         $this->order = $order;
@@ -34,7 +31,12 @@ class OrderCreated
     {
         return [
             // new PrivateChannel('channel-name'),
-            new Channel('order-created'),
+            // new Channel('order-created'),
+            new Channel("store.{$this->order->store_id}"),
         ];
+    }
+
+    public function broadcastAs():string{
+        return 'order.created';
     }
 }

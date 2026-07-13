@@ -6,7 +6,10 @@ import { increase_quantity, decrease_quantity, remove_from_cart, reset_cart } fr
 export default function CartItem({ item , country }: any) {
     const { t, i18n } = useTranslation()
     const dispatch = useDispatch();
-    const cart = useSelector((state: any) => state.cart.meals || []);
+    // const cart = useSelector((state: any) => state.cart.meals || []);
+
+
+
 
     const getItemPrice = (item: any) => {
         if (item.selected_attributes && Object.keys(item.selected_attributes).length > 0) {
@@ -17,10 +20,13 @@ export default function CartItem({ item , country }: any) {
         }
         return parseFloat(item.sale_price || item.price || 0);
     };
-    const totalItems = cart.reduce((acc: number, item: any) => acc + item.quantity, 0);
-    const totalPrice = cart.reduce((acc: number, item: any) => {
-        return acc + (getItemPrice(item) * item.quantity);
-    }, 0);
+
+
+
+    // const totalItems = cart.reduce((acc: number, item: any) => acc + item.quantity, 0);
+    // const totalPrice = cart.reduce((acc: number, item: any) => {
+    //     return acc + (getItemPrice(item) * item.quantity);
+    // }, 0);
 
 
     return (

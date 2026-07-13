@@ -7,6 +7,7 @@ use App\Models\Store;
 use App\Services\OrderService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class OrderController extends Controller
 {
@@ -35,5 +36,15 @@ class OrderController extends Controller
             'status' => $validated['status'],
         ]);
         return redirect()->back();
+    }
+
+
+    public function orders_store_page($id){
+      $store = Store::findOrFail($id);
+      $orders = $store->orders;
+      return Inertia::render('Orders/index',[
+        "store"=>$store,
+        "orders"=>$orders
+      ]);
     }
 }

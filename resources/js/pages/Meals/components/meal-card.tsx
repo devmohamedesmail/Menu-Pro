@@ -82,7 +82,7 @@ export default function MealCard({ meal, country, setEditingMeal, setMealDialogO
                         {/* Manage attributes */}
                         <Button
                             size="sm"
-                            variant="secondary"
+                            
                             className="flex items-center gap-1"
                             onClick={() => setAttrDialogOpen(true)}
                             title={t('dashboard.manage_attributes')}

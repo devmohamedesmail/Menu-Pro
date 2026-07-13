@@ -22,10 +22,10 @@ class StoreAttributeValueRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "attribute_id"=> "required|number",
-            "meal_id"=> "required|number",
-            "value"=> "required",
-            "price"=> "required",
+            // "attribute_id"=> "required|number",
+            // "meal_id"=> "required|number",
+            // "value"=> "required",
+            // "price"=> "required",
         ];
     }
 }

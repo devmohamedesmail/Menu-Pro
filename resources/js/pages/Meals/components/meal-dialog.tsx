@@ -11,12 +11,9 @@ import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Loader2 } from 'lucide-react'
 import ImagePicker from '@/components/ui/image-picker'
+import { Meal, Category } from '@/types/menu'
+import { Checkbox } from '@/components/ui/checkbox'
 
-interface Category {
-    id: number
-    name_en: string
-    name_ar: string
-}
 
 interface AttributeValue {
     id: number
@@ -34,25 +31,7 @@ interface Attribute {
     values: AttributeValue[]
 }
 
-interface MealAttribute {
-    attribute_id: number
-    attribute_value_id: number
-}
 
-interface Meal {
-    id?: number
-    name_en: string
-    name_ar: string
-    description_en?: string
-    description_ar?: string
-    image: string
-    price: number
-    sale_price?: number
-    category: {
-        id: number
-    }
-    attributes?: MealAttribute[]
-}
 
 interface Props {
     open: boolean
@@ -87,6 +66,8 @@ export default function MealDialog({ open, onClose, categories, meal }: Props) {
         description_ar: Yup.string(),
         price: Yup.number().min(0, t('common.must-be-positive')).required(t('common.required-field')),
         sale_price: Yup.number().min(0, t('common.must-be-positive')),
+        is_simple: Yup.string().optional(),
+        is_featured: Yup.string().optional(),
     })
 
     const formik = useFormik({
@@ -98,10 +79,13 @@ export default function MealDialog({ open, onClose, categories, meal }: Props) {
             description_ar: meal?.description_ar || '',
             price: meal?.price || '',
             sale_price: meal?.sale_price || '',
+            is_simple: meal?.is_simple || true,
+            is_featured: meal?.is_featured || false,
         },
         enableReinitialize: true,
         validationSchema,
         onSubmit: async (values) => {
+            console.log(values)
             setIsSubmitting(true)
             const formData = new FormData()
             formData.append('category_id', values.category_id.toString())
@@ -110,6 +94,8 @@ export default function MealDialog({ open, onClose, categories, meal }: Props) {
             formData.append('description_en', values.description_en)
             formData.append('description_ar', values.description_ar)
             formData.append('price', values.price.toString())
+            formData.append('is_simple', values.is_simple ? '1' : '0')
+            formData.append('is_featured', values.is_featured ? '1' : '0')
             if (values.sale_price) {
                 formData.append('sale_price', values.sale_price.toString())
             }
@@ -296,8 +282,21 @@ export default function MealDialog({ open, onClose, categories, meal }: Props) {
                         </div>
                     </div>
 
-                    {/* Attributes Section */}
-                
+                    <div className='flex items-center justify-between'>
+                        <div className='flex items-center'>
+                            <Checkbox checked={formik.values.is_simple}
+                                onCheckedChange={(checked) => formik.setFieldValue('is_simple', checked === true)} />
+                            <Label className='mx-2'>{t('menu.is_simple')}</Label>
+                        </div>
+
+
+                        <div className='flex items-center'>
+                            <Checkbox checked={formik.values.is_featured}
+                                onCheckedChange={(checked) => formik.setFieldValue('is_featured', checked === true)} />
+                            <Label className='mx-2'>{t('menu.is_featured')}</Label>
+                        </div>
+                    </div>
+
 
                     {/* Image Upload */}
                     <div className="space-y-2">
@@ -321,7 +320,7 @@ export default function MealDialog({ open, onClose, categories, meal }: Props) {
                         >
                             {t('common.cancel')}
                         </Button>
-                  
+
                         <Button
                             type="submit"
                             disabled={isSubmitting}

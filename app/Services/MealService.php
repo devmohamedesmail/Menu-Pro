@@ -12,6 +12,7 @@ use App\Models\Store;
 use App\Services\CloudinaryService;
 use App\Traits\UploadsToCloudinary;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class MealService
 {
@@ -19,25 +20,27 @@ class MealService
     /**
      * Create a new class instance.
      */
-    public function __construct(protected CloudinaryService $cloudinaryService){}
+    public function __construct(protected CloudinaryService $cloudinaryService) {}
 
     public function store(StoreMealRequest $request)
     {
         $user  = Auth::user();
         $store = Store::where('user_id', $user->id)->first();
-        $data = $request->validated();
+
 
         $imagePath = $this->cloudinaryService->uploadToCloudinary($request->file('image'), 'meals');
 
         $meal = $store->meals()->create([
-            'category_id'    => $data['category_id'],
-            'name_en'        => $data['name_en'],
-            'name_ar'        => $data['name_ar'],
-            'description_en' => $data['description_en'] ?? null,
+            'category_id'    => $request['category_id'],
+            'name_en'        => $request['name_en'],
+            'name_ar'        => $request['name_ar'],
+            'description_en' => $request['description_en'] ?? null,
             'description_ar' => $request['description_ar'] ?? null,
             'image'          => $imagePath,
-            'price'          => $data['price'],
-            'sale_price'     => $data['sale_price'] ?? null,
+            'price'          => $request['price'],
+            'sale_price'     => $request['sale_price'] ?? null,
+            'is_simple'     => $request['is_simple'] ?? true,
+            'is_featured'     => $request['is_featured'] ?? false,
         ]);
 
         // Handle attributes
@@ -85,7 +88,7 @@ class MealService
 
     public function destroy(int $id)
     {
-         
+
         $meal = Meal::findOrFail($id);
         $meal->delete();
         return true;
@@ -93,28 +96,70 @@ class MealService
 
     public function Add_Meal_Attribute(StoreAttributeValueRequest $request, int $id)
     {
-        $user  = Auth::user();
-        $store = Store::where('user_id', $user->id)->first();
-        $meal  = $store->meals()->findOrFail($id);
+
+        return DB::transaction(function () use ($request, $id) {
+            $user  = Auth::user();
+            $store = Store::where('user_id', $user->id)->first();
+            $meal  = $store->meals()->findOrFail($id);
+
+            // Delete the attributes Values and meal attribute
+            AttributeValue::where('meal_id', $meal->id)->delete();
+            MealAttribute::where('meal_id', $meal->id)->delete();
 
 
 
-        foreach ($request->values as $row) {
-            $meal_values = AttributeValue::create([
-                'attribute_id' => $row['attribute_id'],
-                'meal_id'      => $meal->id,
-                'value'        => $row['value'],
-                'price'        => $row['price'] ?? 0,
-            ]);
+            // create New Attribute
+            foreach ($request->values as $row) {
+                $meal_values = AttributeValue::create([
+                    'attribute_id' => $row['attribute_id'],
+                    'meal_id'      => $meal->id,
+                    'value'        => $row['value'],
+                    'price'        => $row['price'] ?? 0,
+                    'is_required' => $row['is_required'] ?? false,
+                    'is_default'=> $row['is_default'] ?? false
 
-            $meal_attributes = MealAttribute::firstOrCreate([
-                'meal_id'      => $meal->id,
-                'attribute_id' => $row['attribute_id'],
-            ]);
-        }
+                ]);
 
-        return $meal_values;
+                $meal_attributes = MealAttribute::firstOrCreate([
+                    'meal_id'      => $meal->id,
+                    'attribute_id' => $row['attribute_id'],
+                ]);
+            }
+
+            $meal->is_simple = false;
+            $meal->save();
+            return $meal_values;
+        });
+
+        // $user  = Auth::user();
+        // $store = Store::where('user_id', $user->id)->first();
+        // $meal  = $store->meals()->findOrFail($id);
+        // foreach ($request->values as $row) {
+        //     $meal_values = AttributeValue::create([
+        //         'attribute_id' => $row['attribute_id'],
+        //         'meal_id'      => $meal->id,
+        //         'value'        => $row['value'],
+        //         'price'        => $row['price'] ?? 0,
+        //     ]);
+
+        //     $meal_attributes = MealAttribute::firstOrCreate([
+        //         'meal_id'      => $meal->id,
+        //         'attribute_id' => $row['attribute_id'],
+        //     ]);
+        // }
+
+        // $meal->is_simple = false;
+        // $meal->save();
+        // return $meal_values;
     }
+
+
+
+
+
+
+
+
 
 
     public function Delete_Meal_Attribute(int $id)

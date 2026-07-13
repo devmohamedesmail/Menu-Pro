@@ -379,9 +379,11 @@
         "address": " العنوان ",
         "browse-categories": " تصفح الاقسام ",
         "browse-meals": " تصفح وجباتنا المميزة ",
-        "success":" تم بنجاح ",
-        "error_happened":" حدث خطا حاول مرة اخري ",
-         "invalid-email":"البريد الإلكتروني غير صحيح"
+        "success": " تم بنجاح ",
+        "error_happened": " حدث خطا حاول مرة اخري ",
+        "invalid-email": "البريد الإلكتروني غير صحيح",
+        "is_required":"مطلوب",
+        "is_default":"افتراضي"
     },
     "countries": {
         "title": " إدارة الدول ",
@@ -474,7 +476,7 @@
     "stores": {
         "title": "إدارة المتاجر",
         "description": "عرض وإدارة جميع المتاجر",
-        "update-description":" تحديث بيانات متجرك ",
+        "update-description": " تحديث بيانات متجرك ",
         "add-store": "إضافة متجر جديد",
         "edit-store": "تعديل المتجر",
         "delete-store": "حذف المتجر",
@@ -607,7 +609,10 @@
         "order-sent-success": " تم ارسال طلبك بنجاح ",
         "order-sent-failed": " فشل ارسال الطلب حاول مرة اخري ",
         "why-call-waiter": " لماذا تريد الجرسون ؟ ",
-        "send": " ارسل طلبك "
+        "send": " ارسل طلبك ",
+        "is_featured": "  هل الوجبة مميزة ",
+        "featured": " مميزة ",
+        "is_simple": " هل الوجبة ليها مواصفات ؟ "
     },
     "tables": {
         "add-table": "أضافة طاولة",
@@ -732,7 +737,8 @@
     },
     "orders": {
         "delivery": " توصيل بالخارج ",
-        "table": " رقم الطاولة  "
+        "table": " رقم الطاولة  ",
+        "order-recieved":" تم استلام طلب جديد "
     },
     "plans": {
         "create": "إنشاء باقة",

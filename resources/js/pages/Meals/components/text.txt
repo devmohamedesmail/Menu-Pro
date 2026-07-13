@@ -19,8 +19,6 @@ import {
     SelectValue,
 } from '@/components/ui/select'
 import { useFormik } from 'formik'
-import toast from 'react-hot-toast'
-import { Checkbox } from '@/components/ui/checkbox'
 
 interface Attribute {
     id: number
@@ -46,6 +44,13 @@ interface MealAttributeDialogProps {
     attributes: Attribute[]
 }
 
+interface ValueRow {
+    attribute_id: string
+    value: string
+    price: string
+}
+
+const emptyRow = (): ValueRow => ({ attribute_id: '', value: '', price: '0' })
 
 declare function route(name: string, params?: any): string
 
@@ -57,83 +62,59 @@ export default function MealAttributeDialog({
 }: MealAttributeDialogProps) {
     const { t, i18n } = useTranslation()
     const isAr = i18n.language === 'ar'
- 
 
-    const formik = useFormik({
-        initialValues: {
-        
-            rows: meal ? meal.attributes.flatMap((attribute: any) => attribute.attribute_values.map((value: any) => ({
-                attribute_id: value.attribute_id,
-                value: value.value,
-                price: value.price,
-                attribute_name: attribute.name_ar,
-                is_default: value.is_default,
-                is_required: value.is_required
-            }))) :
-                [{
-                    attribute_id: '',
-                    value: "",
-                    price: 0,
-                    is_default: false,
-                    is_required: false
-                }]
 
-        },
-        onSubmit: (values) => {
-            const valid = values.rows.filter((r:any) => r.attribute_id && r.value.trim())
-            if (valid.length === 0) return
-
-            router.post(
-
-                route('add.attributes.meal', meal.id),
-                { values: valid } as any,
-                {
-                    onSuccess: () => {
-                        toast.success(t('common.success'))
-                        setSubmitting(false)
-                        onClose()
-                    },
-                    onError: (errors) => {
-                        setSubmitting(false)
-                        toast.error(t('common.error_happended'))
-                    },
-                    preserveScroll: true,
-                }
-            )
-        }
+    const formik =useFormik({
+        initialValues:[],
+        onSubmit:()=>{}
     })
 
-
+    // Rows being composed by the user before saving
+    const [rows, setRows] = useState<ValueRow[]>([emptyRow()])
     const [submitting, setSubmitting] = useState(false)
+
+    // Existing saved attribute values for this meal
     const existingValues: AttributeValue[] = meal?.attribute_values ?? []
 
-    const getAttrName = (attr: Attribute) => isAr ? attr.name_ar : attr.name_en
+    const getAttrName = (attr: Attribute) =>
+        isAr ? attr.name_ar : attr.name_en
 
-    const addRow = () => {
-        formik.setFieldValue("rows", [
-            ...formik.values.rows, {
-                attribute_id: '',
-                value: "",
-                price: 0,
-                is_default: false,
-                is_required: false
+    /* ── Row helpers ─────────────────────────────────────────────────── */
+    const updateRow = (index: number, field: keyof ValueRow, val: string) => {
+        setRows((prev) =>
+            prev.map((r, i) => (i === index ? { ...r, [field]: val } : r))
+        )
+    }
+
+    const addRow = () => setRows((prev) => [...prev, emptyRow()])
+
+    const removeRow = (index: number) =>
+        setRows((prev) => prev.filter((_, i) => i !== index))
+
+    /* ── Submit new values ───────────────────────────────────────────── */
+    const handleSubmit = () => {
+        const valid = rows.filter((r) => r.attribute_id && r.value.trim())
+        if (valid.length === 0) return
+
+        setSubmitting(true)
+        router.post(
+            route('store.meal.attribute_values.store', meal.id),
+            { values: valid } as any,
+            {
+                onSuccess: () => {
+                    setRows([emptyRow()])
+                    setSubmitting(false)
+                },
+                onError: (errors) => {
+                    setSubmitting(false)
+                    console.log("Error Attr",errors)
+                },
+                preserveScroll: true,
             }
-        ])
+        )
     }
 
-    const updateRow = (index: number, field: string, value: any) => {
-        const rows = [...formik.values.rows];
-        rows[index] = {
-            ...rows[index],
-            [field]: value
-        }
-    }
-
-    const removeRow = (index: number) => {
-        formik.setFieldValue("rows", formik.values.rows.filter((_: any, i: number) => i! == index))
-    }
-
-
+    /* ── Delete an existing value ────────────────────────────────────── */
     const handleDeleteValue = (valueId: number) => {
         if (!confirm(t('dashboard.confirm-delete-attr-value'))) return
         router.delete(route('store.meal.attribute_values.delete', valueId), {
@@ -142,8 +123,8 @@ export default function MealAttributeDialog({
     }
 
     return (
-        <Dialog open={open} onOpenChange={(v) => !v && onClose()} >
-            <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
+        <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
+            <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
                         <Tag className="w-5 h-5 text-primary" />
@@ -155,7 +136,7 @@ export default function MealAttributeDialog({
                 </DialogHeader>
 
                 {/* ── Existing values ─────────────────────────────────── */}
-                {/* {existingValues.length > 0 && (
+                {existingValues.length > 0 && (
                     <div className="space-y-2 mb-4">
                         <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
                             {t('dashboard.saved_values')}
@@ -190,7 +171,7 @@ export default function MealAttributeDialog({
                             </div>
                         ))}
                     </div>
-                )} */}
+                )}
 
                 {/* ── Add new rows ─────────────────────────────────────── */}
                 <div className="space-y-3">
@@ -198,8 +179,8 @@ export default function MealAttributeDialog({
                         {t('dashboard.add_attribute_values')}
                     </p>
 
-                    {formik.values.rows.map((row: any, idx: any) => (
-                        <div key={idx} className="grid grid-cols-[1fr_1fr_1fr] gap-2 items-end mb-4 border p-2 ">
+                    {rows.map((row, idx) => (
+                        <div key={idx} className="grid grid-cols-[1fr_1fr_auto_auto] gap-2 items-end">
                             {/* Attribute selector */}
                             <div>
                                 {idx === 0 && (
@@ -209,16 +190,10 @@ export default function MealAttributeDialog({
                                 )}
                                 <Select
                                     value={row.attribute_id}
-                                    onValueChange={(value) => formik.setFieldValue(`rows.${idx}.attribute_id`, value)}
+                                    onValueChange={(v) => updateRow(idx, 'attribute_id', v)}
                                 >
                                     <SelectTrigger className="h-9 text-sm">
-                                        <SelectValue
-
-                                            placeholder={row.attribute_name ? row.attribute_name : t('dashboard.select_attribute')}
-
-
-                                        />
-                                        <span>{row.attribute_name}</span>
+                                        <SelectValue placeholder={t('dashboard.select_attribute')} />
                                     </SelectTrigger>
                                     <SelectContent>
                                         {attributes.map((attr) => (
@@ -241,8 +216,7 @@ export default function MealAttributeDialog({
                                     className="h-9 text-sm"
                                     placeholder={t('dashboard.value_placeholder')}
                                     value={row.value}
-                                    // onChange={(e) => updateRow(idx, 'value', e.target.value)}
-                                    onChange={(e) => formik.setFieldValue(`rows.${idx}.value`, e.target.value)}
+                                    onChange={(e) => updateRow(idx, 'value', e.target.value)}
                                 />
                             </div>
 
@@ -259,23 +233,8 @@ export default function MealAttributeDialog({
                                     step="0.01"
                                     className="h-9 text-sm w-20"
                                     value={row.price}
-                                    // onChange={(e) => updateRow(idx, 'price', e.target.value)}
-                                    onChange={(e) => formik.setFieldValue(`rows.${idx}.price`, Number(e.target.value))}
+                                    onChange={(e) => updateRow(idx, 'price', e.target.value)}
                                 />
-                            </div>
-                            <div className='flex flex-col items-center justify-center'>
-                                <Checkbox
-                                    checked={Boolean(row.is_default)}
-                                    // value={row.is_default}
-                                    onCheckedChange={(checked) => formik.setFieldValue(`rows.${idx}.is_default`, checked)} />
-                                <Label>{t('common.is_default')}</Label>
-                            </div>
-                            <div className='flex flex-col items-center justify-center'>
-                                <Checkbox 
-                                checked={Boolean(row.is_required)}
-                                value={row.is_required} 
-                                onCheckedChange={(checked) => formik.setFieldValue(`rows.${idx}.is_required`, checked)} />
-                                <Label>{t('common.is_required')}</Label>
                             </div>
 
                             {/* Remove row */}
@@ -284,7 +243,7 @@ export default function MealAttributeDialog({
                                 size="icon"
                                 className="h-9 w-9 text-destructive hover:bg-destructive/10"
                                 onClick={() => removeRow(idx)}
-                            // disabled={rows.length === 1}
+                                disabled={rows.length === 1}
                             >
                                 <Trash2 className="w-4 h-4" />
                             </Button>
@@ -307,7 +266,7 @@ export default function MealAttributeDialog({
                     <Button variant="outline" onClick={onClose}>
                         {t('common.cancel')}
                     </Button>
-                    <Button onClick={() => formik.handleSubmit()} disabled={submitting}>
+                    <Button onClick={handleSubmit} disabled={submitting}>
                         {submitting ? t('common.saving') : t('dashboard.save_attributes')}
                     </Button>
                 </div>

@@ -45,7 +45,6 @@ interface OverviewTabProps {
 
 export default function OverviewTab({ stats, country, orders }: OverviewTabProps) {
     const { t } = useTranslation();
-    console.log(country)
     return (
         <TabsContent value="overview" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">

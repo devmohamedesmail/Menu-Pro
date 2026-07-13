@@ -2,7 +2,9 @@ import React from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { LayoutDashboard, UtensilsCrossed, ListFilter, ShoppingBag, LayoutGrid } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-export default function TabsSection() {
+import { router } from '@inertiajs/react';
+import { Store } from '@/types/menu';
+export default function TabsSection({store}:{store:Store}) {
     const { t } = useTranslation();
     return (
         <TabsList className="bg-white dark:bg-gray-800 p-1 border border-border shadow-sm rounded-lg h-auto">
@@ -23,6 +25,14 @@ export default function TabsSection() {
                 {t('dashboard.orders')}
             </TabsTrigger>
             <TabsTrigger value="tables" className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary py-2.5 px-4 h-auto">
+                <LayoutGrid className="w-4 h-4 mr-2" />
+                {t('dashboard.tables')}
+            </TabsTrigger>
+
+            <TabsTrigger
+                value="#"
+                onClick={() => router.get(`/orders/store/page/${store.id}`)}
+                className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary py-2.5 px-4 h-auto">
                 <LayoutGrid className="w-4 h-4 mr-2" />
                 {t('dashboard.tables')}
             </TabsTrigger>

@@ -18,6 +18,8 @@ export interface AttributeValue {
     id: number;
     value: string;
     price: number | string;
+    is_required: boolean;
+    is_default:boolean;
 }
 
 export interface MealAttribute {
@@ -26,6 +28,8 @@ export interface MealAttribute {
     name_ar: string;
     values: AttributeValue[];
     attribute_values: AttributeValue[];
+    attribute_id: number
+    attribute_value_id: number
 }
 
 export interface Meal {
@@ -41,7 +45,11 @@ export interface Meal {
     is_popular?: number | boolean;
     attributes?: MealAttribute[];
     is_simple?:boolean;
-    is_featured?:boolean
+    is_featured?:boolean;
+    category: {
+        id: number
+    }
+    
 }
 
 export interface Store {

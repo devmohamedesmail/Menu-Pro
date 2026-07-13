@@ -31,15 +31,16 @@ export default function MealDeleteDialog({ open, onClose, meal, setdeleteDialogO
             <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle className="flex items-center gap-2">
-                        <Trash2 className="w-5 h-5 text-primary" />
-                        {t('common.delete')} —{' '}
-                        <span className="text-primary font-bold">
-                            {isAr ? meal?.name_ar : meal?.name_en}
-                        </span>
+                        
                     </DialogTitle>
                 </DialogHeader>
 
-
+                <div className='flex flex-col items-center justify-center'>
+                    <Trash2 className='text-xl text-red-600' size={50} />
+                    <span className="text-primary font-bold mt-5">
+                        {t('common.delete')} {' - '}  {isAr ? meal?.name_ar : meal?.name_en}
+                    </span>
+                </div>
 
 
                 {/* ── Footer ──────────────────────────────────────────── */}
@@ -48,7 +49,7 @@ export default function MealDeleteDialog({ open, onClose, meal, setdeleteDialogO
                         {t('common.cancel')}
                     </Button>
                     <Button onClick={() => handleDeleteMeal()} >
-                     {t('common.delete')}
+                        {t('common.delete')}
                     </Button>
                 </div>
             </DialogContent>

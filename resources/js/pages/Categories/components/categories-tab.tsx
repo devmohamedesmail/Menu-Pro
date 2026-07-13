@@ -5,8 +5,9 @@ import { Edit, ListFilter, Trash2 } from 'lucide-react'
 import EmptyState from '@/components/ui/empty-state'
 import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/button'
-import CategoryDialog from '@/components/vendor/categories/category-dialog'
+
 import { router } from '@inertiajs/react'
+import CategoryDialog from './category-dialog'
 
 
 interface Category {

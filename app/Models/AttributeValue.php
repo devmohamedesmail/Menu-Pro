@@ -14,6 +14,8 @@ class AttributeValue extends Model
         'meal_id',
         'value',
         'price',
+        'is_required',
+        'is_default'
     ];
 
     public function attribute()

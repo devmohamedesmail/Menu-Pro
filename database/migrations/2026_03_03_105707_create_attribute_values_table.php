@@ -19,6 +19,7 @@ return new class extends Migration
             $table->decimal('price',8,2)->default(0);
             $table->integer("display_order")->nullable();
             $table->boolean("is_default")->default(false);
+            $table->boolean('is_required')->default(false);
             $table->timestamps();
         });
     }

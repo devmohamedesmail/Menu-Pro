@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\OrderCreated;
 use App\Http\Requests\StoreOrderRequest;
 use App\Models\Order;
 
@@ -19,7 +20,7 @@ class OrderService
         $total = collect($request->cart)->sum(fn($item) => $item['computed_price']);
         $order->total = $total;
         $order->save();
-
+                 broadcast(new OrderCreated($order));
         return $order;
   }
 }

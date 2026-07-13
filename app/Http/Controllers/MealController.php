@@ -6,8 +6,7 @@ use App\Http\Requests\StoreAttributeValueRequest;
 use App\Http\Requests\StoreMealRequest;
 use App\Http\Requests\UpdateMealRequest;
 use App\Services\MealService;
-
-
+use Illuminate\Http\Request;
 
 class MealController extends Controller
 {
@@ -39,9 +38,17 @@ class MealController extends Controller
         return redirect()->back();
     }
     
-    public function storeAttributeValues(StoreAttributeValueRequest $request, $mealId)
+    // public function storeAttributeValues(StoreAttributeValueRequest $request, $mealId)
+    // {
+        
+    //     $this->mealService->Add_Meal_Attribute($request, $mealId);
+    //     return redirect()->back();
+       
+    // }
+    public function Add_Attribute_Meal(StoreAttributeValueRequest $request, int $id)
     {
-        $this->mealService->Add_Meal_Attribute($request, $mealId);
+        
+        $this->mealService->Add_Meal_Attribute($request, $id);
         return redirect()->back();
        
     }

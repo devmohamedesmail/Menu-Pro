@@ -383,7 +383,9 @@
         "browse-meals":"Browse Our Meals",
         "success":"Done Successfully",
         "error_happened":"Error Happened , Try Again",
-        "invalid-email":"Invalid email address"
+        "invalid-email":"Invalid email address",
+        "is_required":"Required",
+        "is_default":"Default"
     },
     "countries": {
         "title": "Countries Management",
@@ -609,7 +611,10 @@
         "order-sent-success":"Your Order Sent Successfully",
         "order-sent-failed":"Your Order Failed To Sent",
         "why-call-waiter":"Why Call Waiter ?",
-        "send":"Send Your Request"
+        "send":"Send Your Request",
+        "is_featured":"Is Featured",
+        "featured":"Featured",
+        "is_simple":"Is Simple"
     },
     "tables": {
         "add-table": "Add Table",
@@ -734,7 +739,8 @@
     },
     "orders": {
         "delivery": "Delivery",
-        "table": "Table No."
+        "table": "Table No.",
+        "order-recieved":"Order Recieved"
     },
     "plans": {
         "create": "Create Plan",

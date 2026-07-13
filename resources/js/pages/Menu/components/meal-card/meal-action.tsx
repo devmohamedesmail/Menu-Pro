@@ -15,7 +15,7 @@ import {
 import { ShoppingBag, Check, ChevronDown } from 'lucide-react';
 
 
-export default function MealAction({ meal , country }: { meal: Meal , country:Country}) {
+export default function MealAction({ meal, country }: { meal: Meal, country: Country }) {
   const { t, i18n } = useTranslation();
   const isRTL = i18n.language === 'ar';
   const dispatch = useDispatch();
@@ -44,31 +44,45 @@ export default function MealAction({ meal , country }: { meal: Meal , country:Co
       setAttributeDialog(true);
     } else {
       const basePrice = Number(meal.sale_price || meal.price);
-      dispatch(add_to_cart({ 
-        ...meal, 
-        quantity: 1 ,
-        computed_price:basePrice
+      dispatch(add_to_cart({
+        ...meal,
+        quantity: 1,
+        computed_price: basePrice
       }));
+
       toast.success(t('menu.added_to_cart'), { position: 'top-center', duration: 2000 });
     }
   };
 
-  const extraPrice = useMemo(() =>
-    Object.values(selected).reduce((sum, v) => sum + Number(v.price), 0),
-    [selected]
-  );
-  const basePrice = Number(meal.sale_price || meal.price);
-  const totalPrice = basePrice + extraPrice;
+
+
+
+
+  const calculate_computed_price = (item: any) => {
+    if (item.is_simple == 1) {
+      return Number(item.sale_price || item.price || 0)
+    }
+    return Object.values(item.selected_attributes || {}).reduce((sum: any, attr: any) => sum + Number(attr.price || 0), 0)
+  }
 
 
   const AddMealToCart = () => {
+
+    const item = {
+      ...meal,
+      quantity: 1,
+      selected_attributes: selected,
+    }
+    
+
     dispatch(add_to_cart({
       ...meal,
       quantity: 1,
       selected_attributes: selected,
-      computed_price: totalPrice,
+      computed_price: calculate_computed_price(item),
     } as any));
 
+    setAttributeDialog(false)
     toast.success(t('menu.added_to_cart'), { position: 'top-center', duration: 2000 });
     setSelected({});
   }
@@ -81,13 +95,13 @@ export default function MealAction({ meal , country }: { meal: Meal , country:Co
 
         <MealQuantity meal={meal} />
       ) : (
-         <Button onClick={() => handleAddClick()} className='bg-primary w-fit h-8 flex justify-center items-center rounded-md'>
-            {hasAttributes ? (
-              <div className='flex items-center gap-3'>
-                <ShoppingBag className="w-4 h-4 text-white" />
-                <p>{t('menu.select_option')}</p>
-              </div>) : (<ShoppingBag className="w-4 h-4 text-white" />)}
-          </Button>
+        <Button onClick={() => handleAddClick()} className='bg-primary w-fit h-8 flex justify-center items-center rounded-md'>
+          {hasAttributes ? (
+            <div className='flex items-center gap-3'>
+              <ShoppingBag className="w-4 h-4 text-white" />
+              <p>{t('menu.select_option')}</p>
+            </div>) : (<ShoppingBag className="w-4 h-4 text-white" />)}
+        </Button>
 
       )}
 
@@ -129,13 +143,13 @@ export default function MealAction({ meal , country }: { meal: Meal , country:Co
                   <span className="font-semibold text-sm">
                     {i18n.language === "ar" ? attr.name_ar : attr.name_en}
                   </span>
-                  
+
                 </div>
 
                 {/* Value pills */}
                 <div className="flex flex-wrap gap-2">
                   {attr.attribute_values?.map(val => {
-                    const isSelected = selected[attr.id]?.id === val.id;
+                    const isSelected = selected[attr.id]?.id === val.id || val.is_default;
                     return (
                       <Button
                         key={val.id}
@@ -152,7 +166,7 @@ export default function MealAction({ meal , country }: { meal: Meal , country:Co
                         <span>{val.value}</span>
                         {Number(val.price) > 0 && (
                           <span className={`text-xs ${isSelected ? 'text-primary-foreground/80' : 'text-emerald-600'}`}>
-                             {Number(val.price).toFixed(2)}
+                            {Number(val.price).toFixed(2)}
                           </span>
                         )}
                       </Button>
