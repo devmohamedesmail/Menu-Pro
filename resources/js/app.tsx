@@ -11,6 +11,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import store, { persistor } from './redux/store';
 import { configureEcho } from '@laravel/echo-react';
 import i18n from './i18n/index';
+import StoreProvider from './context/store-provider';
 
 
 configureEcho({
@@ -47,15 +48,16 @@ createInertiaApp({
         const root = createRoot(el);
 
         root.render(
-             <StrictMode>
-                <Provider store={store}>
-                    <PersistGate loading={null} persistor={persistor}>
-                         <App {...props} />
-                    </PersistGate>
-                   
-                    <Toaster position="top-right" />
-                </Provider>
-             </StrictMode>, 
+            <StrictMode>
+                <StoreProvider>
+                    <Provider store={store}>
+                        <PersistGate loading={null} persistor={persistor}>
+                            <App {...props} />
+                        </PersistGate>
+                        <Toaster position="top-right" />
+                    </Provider>
+                </StoreProvider>
+            </StrictMode>,
         );
     },
     progress: {

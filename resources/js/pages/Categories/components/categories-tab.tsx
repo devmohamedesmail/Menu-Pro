@@ -3,11 +3,10 @@ import { TabsContent } from '@/components/ui/tabs'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Edit, ListFilter, Trash2 } from 'lucide-react'
 import EmptyState from '@/components/ui/empty-state'
-import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/button'
-
 import { router } from '@inertiajs/react'
 import CategoryDialog from './category-dialog'
+import useImport from '@/hooks/use-import'
 
 
 interface Category {
@@ -22,11 +21,9 @@ interface Category {
 declare function route(name: string, params?: any): string
 
 export default function CategoriesTab({ categories, country }: any) {
-  const { t, i18n } = useTranslation()
+  const { t, isArabic } = useImport()
   const [categoryDialogOpen, setCategoryDialogOpen] = useState(false)
-  const [editingCategory, setEditingCategory] = useState<Category | undefined>()
-  const isArabic = i18n.language === 'ar'
-
+  const [editingCategory, setEditingCategory] = useState<Category | undefined>(undefined)
 
 
   const handleDeleteCategory = (id: number) => {

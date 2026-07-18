@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,8 +20,10 @@ class Store extends Model
         'phone',
         'address',
         'image',
+        'public_image_id',
         'description',
         'banner',
+        'public_banner_id',
         'is_active',
         'is_featured',
         'is_verified',
@@ -34,8 +37,8 @@ class Store extends Model
     }
 
 
-    public function meals(){
-        return $this->hasMany(Meal::class);
+    public function products(){
+        return $this->hasMany(Product::class);
     }
 
     // Define relationship to Country model

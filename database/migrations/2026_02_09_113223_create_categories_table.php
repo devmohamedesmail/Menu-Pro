@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name_en')->nullable();
             $table->string('name_ar')->nullable();
             $table->longText('image')->nullable();
+            $table->string('public_id')->nullable();
             $table->integer('position')->nullable();
             $table->timestamps();
         });

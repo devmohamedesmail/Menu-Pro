@@ -9,6 +9,8 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Loader2 } from 'lucide-react'
 import ImagePicker from '@/components/ui/image-picker'
+import useImport from '@/hooks/use-import'
+import useSelectedStore from '@/hooks/use-selected-store'
 
 interface Category {
     id?: number
@@ -26,9 +28,11 @@ interface Props {
 declare function route(name: string, params?: any): string
 
 export default function CategoryDialog({ open, onClose, category }: Props) {
-    const { t } = useTranslation()
+    const { t } = useImport()
+    const { selectedStore ,getCurrentStore}:any = useSelectedStore()
     const [imageFile, setImageFile] = useState<File | null>(null)
     const [loading, setLoading] = useState(false)
+    const currentStore = getCurrentStore();
 
     const validationSchema = Yup.object({
         name_en: Yup.string().required(t('common.required-field')),
@@ -45,7 +49,7 @@ export default function CategoryDialog({ open, onClose, category }: Props) {
         enableReinitialize: true,
         validationSchema,
         onSubmit: async (values) => {
-             setLoading(true)
+            setLoading(true)
             const formData = new FormData()
             formData.append('name_en', values.name_en)
             formData.append('name_ar', values.name_ar)
@@ -75,7 +79,7 @@ export default function CategoryDialog({ open, onClose, category }: Props) {
 
             } else {
 
-                router.post(route('store.category.store'), formData, {
+                router.post(route('store.category.store', currentStore?.id), formData, {
                     onSuccess: () => {
                         onClose()
                         formik.resetForm()

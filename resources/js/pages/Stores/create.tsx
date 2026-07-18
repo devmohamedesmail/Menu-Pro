@@ -3,7 +3,7 @@ import { Head, Link, router } from '@inertiajs/react'
 import { useTranslation } from 'react-i18next'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -32,10 +32,10 @@ export default function RegisterStore({ countries }: any) {
     const validationSchema = Yup.object({
         name: Yup.string().required(t('common.store-name-required')),
         country_id: Yup.string().required(t('common.country-required')),
-        store_email: Yup.string().email(t('common.invalid-email')).nullable(),
-        store_phone: Yup.string().nullable(),
-        store_address: Yup.string().nullable(),
-        store_description: Yup.string().nullable(),
+        email: Yup.string().email(t('common.invalid-email')).nullable(),
+        phone: Yup.string().nullable(),
+        address: Yup.string().nullable(),
+        description: Yup.string().nullable(),
         image: Yup.mixed()
             .required(t('common.store-logo-required'))
             .test('fileSize', t('common.file-size-limit'), (value) => {
@@ -56,10 +56,10 @@ export default function RegisterStore({ countries }: any) {
             country_id: '',
             name: '',
             slug: '',
-            store_email: '',
-            store_phone: '',
-            store_address: '',
-            store_description: '',
+            email: '',
+            phone: '',
+            address: '',
+            description: '',
             image: null as File | null,
             banner: null as File | null,
         },
@@ -80,10 +80,10 @@ export default function RegisterStore({ countries }: any) {
             formData.append('country_id', values.country_id)
             formData.append('name', values.name)
             formData.append('slug', slug)
-            if (values.store_email) formData.append('store_email', values.store_email)
-            if (values.store_phone) formData.append('store_phone', values.store_phone)
-            if (values.store_address) formData.append('store_address', values.store_address)
-            if (values.store_description) formData.append('store_description', values.store_description)
+            if (values.email) formData.append('email', values.email)
+            if (values.phone) formData.append('phone', values.phone)
+            if (values.address) formData.append('address', values.address)
+            if (values.description) formData.append('description', values.description)
             if (values.image) formData.append('image', values.image)
             if (values.banner) formData.append('banner', values.banner)
 
@@ -203,17 +203,17 @@ export default function RegisterStore({ countries }: any) {
                                         </Label>
                                         <Input
                                             id="store_email"
-                                            name="store_email"
+                                            name="email"
                                             type="email"
-                                            value={formik.values.store_email}
+                                            value={formik.values.email}
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
                                             disabled={isSubmitting}
                                             placeholder={t('auth.enter-store-email')}
                                             className="h-11"
                                         />
-                                        {formik.touched.store_email && formik.errors.store_email && (
-                                            <InputError message={formik.errors.store_email} />
+                                        {formik.touched.email && formik.errors.email && (
+                                            <InputError message={formik.errors.email} />
                                         )}
                                     </div>
 
@@ -223,17 +223,17 @@ export default function RegisterStore({ countries }: any) {
                                         </Label>
                                         <Input
                                             id="store_phone"
-                                            name="store_phone"
+                                            name="phone"
                                             type="tel"
-                                            value={formik.values.store_phone}
+                                            value={formik.values.phone}
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
                                             disabled={isSubmitting}
                                             placeholder={t('auth.enter-store-phone')}
                                             className="h-11"
                                         />
-                                        {formik.touched.store_phone && formik.errors.store_phone && (
-                                            <InputError message={formik.errors.store_phone} />
+                                        {formik.touched.phone && formik.errors.phone && (
+                                            <InputError message={formik.errors.phone} />
                                         )}
                                     </div>
 
@@ -243,17 +243,17 @@ export default function RegisterStore({ countries }: any) {
                                         </Label>
                                         <Input
                                             id="store_address"
-                                            name="store_address"
+                                            name="address"
                                             type="text"
-                                            value={formik.values.store_address}
+                                            value={formik.values.address}
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
                                             disabled={isSubmitting}
                                             placeholder={t('auth.enter-store-address')}
                                             className="h-11"
                                         />
-                                        {formik.touched.store_address && formik.errors.store_address && (
-                                            <InputError message={formik.errors.store_address} />
+                                        {formik.touched.address && formik.errors.address && (
+                                            <InputError message={formik.errors.address} />
                                         )}
                                     </div>
 
@@ -263,8 +263,8 @@ export default function RegisterStore({ countries }: any) {
                                         </Label>
                                         <textarea
                                             id="store_description"
-                                            name="store_description"
-                                            value={formik.values.store_description}
+                                            name="description"
+                                            value={formik.values.description}
                                             onChange={formik.handleChange}
                                             onBlur={formik.handleBlur}
                                             disabled={isSubmitting}
@@ -272,8 +272,8 @@ export default function RegisterStore({ countries }: any) {
                                             className="flex min-h-[100px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                                             rows={4}
                                         />
-                                        {formik.touched.store_description && formik.errors.store_description && (
-                                            <InputError message={formik.errors.store_description} />
+                                        {formik.touched.description && formik.errors.description && (
+                                            <InputError message={formik.errors.description} />
                                         )}
                                     </div>
 

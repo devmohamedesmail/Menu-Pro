@@ -2,13 +2,14 @@
 
 namespace App\Providers;
 
-use Inertia\Inertia;
 use App\Models\Setting;
 use Carbon\CarbonImmutable;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use Inertia\Inertia;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,20 +27,16 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+        Inertia::share('settings', function () { return Setting::first(); });
+        Inertia::share('auth' , fn()=> Auth::user());
+        Inertia::share('stores' , fn()=> Auth::check() ? Auth::user()->stores?->load([
+            'country'
+        ]) : null);
+        
 
-         // app settings
-        Inertia::share('settings', function () {
-            return Setting::first();
-        });
 
-        // auth user
-        Inertia::share([
-        'auth' => function () {
-            return auth()->check()
-                ? ['user' => auth()->user()]
-                : ['user' => null];
-        }
-        ]);
+
+
 
 
     }

@@ -13,6 +13,8 @@ import { Loader2 } from 'lucide-react'
 import ImagePicker from '@/components/ui/image-picker'
 import { Meal, Category } from '@/types/menu'
 import { Checkbox } from '@/components/ui/checkbox'
+import useSelectedStore from '@/hooks/use-selected-store'
+import useImport from '@/hooks/use-import'
 
 
 interface AttributeValue {
@@ -45,12 +47,11 @@ interface Props {
 
 declare function route(name: string, params?: any): string
 export default function MealDialog({ open, onClose, categories, meal }: Props) {
-
-
-    const { t, i18n } = useTranslation()
-    const isArabic = i18n.language === 'ar'
+    const { t } = useImport()
     const [imageFile, setImageFile] = useState<File | null>(null)
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const { getCurrentStore } = useSelectedStore()
+    const currentStore = getCurrentStore()
     const [selectedAttributes, setSelectedAttributes] = useState<Record<number, number>>(
         meal?.attributes?.reduce((acc, attr) => {
             acc[attr.attribute_id] = attr.attribute_value_id
@@ -126,7 +127,7 @@ export default function MealDialog({ open, onClose, categories, meal }: Props) {
                     },
                 })
             } else {
-                router.post(route('store.meal.store'), formData, {
+                router.post(route('store.meal.store', currentStore?.id), formData, {
                     onSuccess: () => {
                         onClose()
                         formik.resetForm()

@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { LayoutGrid } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import EmptyState from '../../ui/empty-state'
+import EmptyState from './empty-state'
 import TableDialog from './table-dialog'
 import QrDialog from './qr-dialog'
 import TableCard from './table-card'

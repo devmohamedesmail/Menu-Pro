@@ -188,7 +188,8 @@
         "passwords-must-match": "Passwords must match",
         "confirm-password-required": "Confirm password is required",
         "store-name-required": "Store name is required",
-        "country-required": "Country is required"
+        "country-required": "Country is required",
+        "google-login":"Login With Google"
     },
     "dashboard": {
         "title": "Dashboard",
@@ -385,7 +386,9 @@
         "error_happened":"Error Happened , Try Again",
         "invalid-email":"Invalid email address",
         "is_required":"Required",
-        "is_default":"Default"
+        "is_default":"Default",
+        "page-error":"There Error Happended , Please Try Again",
+        "go-back":"Go Back"
     },
     "countries": {
         "title": "Countries Management",
@@ -509,7 +512,8 @@
         "owner": "Owner",
         "created-at": "Created At",
         "manage-stores-desc": "Easily view, add, edit, or remove stores to keep your platform organized and up-to-date.",
-        "confirm-delete-category": "Are you sure you want to delete this category? This action cannot be undone."
+        "confirm-delete-category": "Are you sure you want to delete this category? This action cannot be undone.",
+        "add-new-store":"Add New Store"
     },
     "roles": {
         "title": "Roles Management",
@@ -636,7 +640,8 @@
         "confirm-delete-table": "Are you sure you want to delete this table?",
         "scan-to-order": "Scan to Order",
         "download": "Download",
-        "print": "Print"
+        "print": "Print",
+        "no-tables":"No tables Found"
     },
     "partners": {
         "title": "Our Partners",
@@ -740,7 +745,9 @@
     "orders": {
         "delivery": "Delivery",
         "table": "Table No.",
-        "order-recieved":"Order Recieved"
+        "order-recieved":"Order Recieved",
+        "delivery-order":"Delivery Order",
+        "no-orders-found":"No Orders Found"
     },
     "plans": {
         "create": "Create Plan",

@@ -12,9 +12,10 @@ class CategoryController extends Controller
      public function __construct(protected CategoryService $categoryService) {}
 
 
-    public function storeCategory(StoreCategoryRequest $request)
+    public function storeCategory(StoreCategoryRequest $request,$id)
     {
-        $this->categoryService->store($request);
+        
+        $this->categoryService->store($request , $id);
         return redirect()->back();
     }
 

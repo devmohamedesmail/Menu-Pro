@@ -2,25 +2,15 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { router } from '@inertiajs/react'
 import { Plus, Trash2, X, Tag } from 'lucide-react'
-import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-} from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@/components/ui/select'
+import { Select,SelectContent,SelectItem,SelectTrigger,SelectValue } from '@/components/ui/select'
 import { useFormik } from 'formik'
 import toast from 'react-hot-toast'
 import { Checkbox } from '@/components/ui/checkbox'
+import useImport from '@/hooks/use-import'
 
 interface Attribute {
     id: number
@@ -55,9 +45,8 @@ export default function MealAttributeDialog({
     meal,
     attributes,
 }: MealAttributeDialogProps) {
-    const { t, i18n } = useTranslation()
-    const isAr = i18n.language === 'ar'
- 
+    
+ const {t , isArabic}=useImport()
 
     const formik = useFormik({
         initialValues: {
@@ -107,7 +96,7 @@ export default function MealAttributeDialog({
     const [submitting, setSubmitting] = useState(false)
     const existingValues: AttributeValue[] = meal?.attribute_values ?? []
 
-    const getAttrName = (attr: Attribute) => isAr ? attr.name_ar : attr.name_en
+    const getAttrName = (attr: Attribute) => isArabic ? attr.name_ar : attr.name_en
 
     const addRow = () => {
         formik.setFieldValue("rows", [
@@ -149,49 +138,12 @@ export default function MealAttributeDialog({
                         <Tag className="w-5 h-5 text-primary" />
                         {t('dashboard.manage_attributes')} —{' '}
                         <span className="text-primary font-bold">
-                            {isAr ? meal?.name_ar : meal?.name_en}
+                            {isArabic ? meal?.name_ar : meal?.name_en}
                         </span>
                     </DialogTitle>
                 </DialogHeader>
 
-                {/* ── Existing values ─────────────────────────────────── */}
-                {/* {existingValues.length > 0 && (
-                    <div className="space-y-2 mb-4">
-                        <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
-                            {t('dashboard.saved_values')}
-                        </p>
-                        {existingValues.map((av) => (
-                            <div
-                                key={av.id}
-                                className="flex items-center justify-between bg-secondary/60 rounded-xl px-3 py-2 gap-2"
-                            >
-                                <div className="flex-1 min-w-0">
-                                    <span className="text-xs font-semibold text-primary">
-                                        {av.attribute
-                                            ? getAttrName(av.attribute)
-                                            : `#${av.attribute_id}`}
-                                    </span>
-                                    <span className="mx-2 text-muted-foreground">·</span>
-                                    <span className="text-sm">{av.value}</span>
-                                    {Number(av.price) > 0 && (
-                                        <span className="ml-2 text-xs text-emerald-600 font-bold">
-                                            +{av.price}
-                                        </span>
-                                    )}
-                                </div>
-                                <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    className="w-7 h-7 text-destructive hover:bg-destructive/10 shrink-0"
-                                    onClick={() => handleDeleteValue(av.id)}
-                                >
-                                    <X className="w-4 h-4" />
-                                </Button>
-                            </div>
-                        ))}
-                    </div>
-                )} */}
-
+            
                 {/* ── Add new rows ─────────────────────────────────────── */}
                 <div className="space-y-3">
                     <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">

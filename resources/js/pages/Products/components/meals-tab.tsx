@@ -1,39 +1,23 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { TabsContent } from '@/components/ui/tabs'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Edit, Trash2, UtensilsCrossed } from 'lucide-react'
+import { UtensilsCrossed } from 'lucide-react'
 import EmptyState from '@/components/ui/empty-state'
-import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/button'
 import MealDialog from './meal-dialog'
 import { router } from '@inertiajs/react'
 import MealCard from './meal-card'
-
-
-interface Meal {
-  id: number
-  name_en: string
-  name_ar: string
-  description_en?: string
-  description_ar?: string
-  image: string
-  price: number
-  sale_price?: number
-  category: {
-    id: number
-    name_en: string
-    name_ar: string
-  }
-}
+import { Meal } from '@/types/menu'
+import useImport from '@/hooks/use-import'
+import useSelectedStore from '@/hooks/use-selected-store'
 
 
 
 declare function route(name: string, params?: any): string
 export default function MealsTab({ meals, categories, country, attributes }: any) {
-  const { t, i18n } = useTranslation()
+  const { t } = useImport()
   const [mealDialogOpen, setMealDialogOpen] = useState(false)
   const [editingMeal, setEditingMeal] = useState<Meal | undefined>()
-  
 
 
   const handleDeleteMeal = (id: number) => {

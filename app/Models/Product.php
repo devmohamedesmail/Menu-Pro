@@ -1,14 +1,18 @@
 <?php
+
 namespace App\Models;
 
+use App\Models\Attribute;
+use App\Models\AttributeValue;
+use App\Models\Category;
+use App\Models\Store;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Meal extends Model
+class Product extends Model
 {
-    /** @use HasFactory<\Database\Factories\MealFactory> */
+    /** @use HasFactory<\Database\Factories\ProductFactory> */
     use HasFactory;
-
     protected $fillable = [
         'category_id',
         'store_id',
@@ -17,11 +21,13 @@ class Meal extends Model
         'description_en',
         'description_ar',
         'image',
+        'public_id',
         'price',
         'sale_price',
         'is_featured',
         'is_simple'
     ];
+
 
     public function category()
     {
@@ -40,8 +46,6 @@ class Meal extends Model
 
     public function attributes()
     {
-        return $this->belongsToMany(Attribute::class, 'meal_attributes');
+        return $this->belongsToMany(Attribute::class, 'product_attributes');
     }
-
-    
 }

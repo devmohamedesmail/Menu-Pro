@@ -5,9 +5,10 @@ namespace App\Services;
 use App\Http\Requests\StoreStoreRequest;
 use App\Http\Requests\UpdateStoreRequest;
 use App\Models\Attribute;
+use App\Models\Role;
 use App\Models\Store;
+use App\Models\User;
 use App\Services\CountryService;
-use App\Traits\UploadsToCloudinary;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
@@ -20,7 +21,6 @@ class StoreService
         protected CountryService $countryService
     ) {}
 
-    use UploadsToCloudinary;
 
     public function getAllStores()
     {
@@ -30,7 +30,10 @@ class StoreService
     public function createStore(StoreStoreRequest $request)
     {
 
+      
         $store = new Store();
+        $auth = Auth::user();
+        $user = User::where('id', $auth->id)->firstOrFail();
         $store->user_id = Auth::user()->id;
         $store->country_id = $request->country_id;
         $store->name = $request->name;
@@ -42,23 +45,31 @@ class StoreService
 
 
         if (isset($request['image'])) {
-            $imagePath =  $this->cloudinaryService->uploadToCloudinary(
+            $imageResult =  $this->cloudinaryService->uploadToCloudinary(
                 $request['image'],
                 'stores/logos'
             );
 
-            $store->image = $imagePath;
+            $store->image = $imageResult['url'] ?? null;
+            $store->public_image_id = $imageResult['public_id'] ?? null;
         }
 
         // // Upload banner if exists
         if (isset($request['banner'])) {
-            $bannerPath =  $this->cloudinaryService->uploadToCloudinary(
+            $bannerResult =  $this->cloudinaryService->uploadToCloudinary(
                 $request['banner'],
                 'stores/banners'
             );
 
-            $store->banner = $bannerPath;
+            $store->banner = $bannerResult["url"] ?? null;
+            $store->banner_public_id = $bannerResult["public_id"] ?? null;
         }
+
+        $vendorRole = Role::where('name', 'vendor')->firstOrFail();
+        $user->role_id = $vendorRole->id;
+        $user->update([
+            "role_id" => $vendorRole->id
+        ]);
         $store->save();
         return $store;
     }
@@ -66,7 +77,7 @@ class StoreService
 
     public function updateStore(UpdateStoreRequest $request, int $id)
     {
-    //    dd($request);
+
         $store = Store::findOrFail($id);
         $store->country_id = $request->country_id;
         $store->name = $request->name;
@@ -95,7 +106,7 @@ class StoreService
 
             $store->banner = $bannerPath;
         }
-        
+
 
         if (isset($request['name']) && $request['name'] !== $store->name) {
             $request['slug'] = Str::slug($request['name']);
@@ -144,11 +155,12 @@ class StoreService
 
 
 
-    public function GetStoreData()
+    public function GetStoreData(int $id)
     {
-        $user  = Auth::user();
-        $store = Store::where('user_id', $user->id)->first();
+
+        $store = Store::findOrFail($id);
         $countries = $this->countryService->getAll();
+      
         if (!$store) {
             return [
                 'redirecttoCreate' => true,
@@ -157,8 +169,8 @@ class StoreService
         }
 
 
-        $categories = $store->categories()->withCount('meals')->get();
-        $meals = $store->meals()->with(["category", "attributes.attributeValues"])->paginate(10);
+        $categories = $store->categories()->withCount('products')->get();
+        $meals = $store->products()->with(["category", "attributes.attributeValues"])->paginate(10);
         $country    = $store->country()->first();
         $orders     = $store->orders()->get();
         $tables     = $store->tables()->get();

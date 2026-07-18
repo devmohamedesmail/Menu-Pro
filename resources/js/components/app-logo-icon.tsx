@@ -1,17 +1,11 @@
-import { Settings } from '@/types/settings';
-import { usePage } from '@inertiajs/react';
-import { PageProps } from '@inertiajs/core'
 
-interface AppPageProps extends PageProps {
-    settings: Settings
-}
-
+import useSettings from '@/hooks/use-settings';
 export default function AppLogoIcon() {
-    const { settings } = usePage<AppPageProps>().props;
+    const { settings } = useSettings()
 
     return (
         <div>
-            <img src={settings.logo} className='w-fit ' alt={settings.title_en} />
+            <img src={settings?.logo} className='w-fit ' alt={settings?.title_en} />
         </div>
     );
 }

@@ -16,9 +16,9 @@ import { Link } from '@inertiajs/react';
 import { usePage } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 import { router } from '@inertiajs/react';
-import ThemeToggle from '../ui/theme-toggle';
-import LangToggle from '../ui/lang-toggle';
-import AuthMenu from '../shared/auth-menu';
+import ThemeToggle from '../../../components/ui/theme-toggle';
+import LangToggle from '../../../components/ui/lang-toggle';
+import AuthMenu from '../../../components/shared/auth-menu';
 
 
 function StoreBannerPlaceholder() {

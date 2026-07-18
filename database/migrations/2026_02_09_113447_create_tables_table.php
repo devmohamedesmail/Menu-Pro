@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('tables', function (Blueprint $table) {
             $table->id();
-               $table->foreignId('store_id')->constrained()->onDelete('cascade'); 
+            $table->foreignId('store_id')->constrained()->onDelete('cascade'); 
             $table->string('name')->nullable();
             $table->integer('capacity')->default(4);
             $table->longText('qr_code')->nullable();
+            $table->string('public_id')->nullable();
             $table->timestamps();
         });
     }

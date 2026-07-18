@@ -11,8 +11,9 @@ import InputError from '@/components/input-error'
 import { CheckCircle2, Languages, Loader2 } from 'lucide-react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import ImagePicker from '@/components/ui/image-picker'
-import Header from '@/components/vendor/header'
+import Header from '@/pages/VendorDashboard/components/header'
 import toast from 'react-hot-toast'
+import { Textarea } from '@/components/ui/textarea'
 
 // @ts-ignore
 declare var route: any;
@@ -228,7 +229,7 @@ export default function UpdateStore({ store, countries }: any) {
 
                                     <div className="grid gap-2">
                                         <Label htmlFor="store_description">{t('auth.store-description')}</Label>
-                                        <textarea
+                                        <Textarea
                                             id="store_description"
                                             name="store_description"
                                             value={formik.values.store_description}
@@ -238,6 +239,7 @@ export default function UpdateStore({ store, countries }: any) {
                                             className="flex min-h-25 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                                             rows={4}
                                         />
+                                        
                                         {formik.touched.store_description && formik.errors.store_description && (
                                             <InputError message={getErrorMessage(formik.errors.store_description)} />
                                         )}

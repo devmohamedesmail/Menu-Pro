@@ -39,9 +39,11 @@ class OrderController extends Controller
     }
 
 
-    public function orders_store_page($id){
+    public function orders_store_page(int $id){
+        
       $store = Store::findOrFail($id);
       $orders = $store->orders;
+      
       return Inertia::render('Orders/index',[
         "store"=>$store,
         "orders"=>$orders

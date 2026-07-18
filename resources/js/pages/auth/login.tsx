@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 import Footer from '@/components/shared/footer';
 import { Eye, EyeOff, KeyRound, Mail } from 'lucide-react';
 import NavBar from '../Public/Home/components/nav-bar';
+import GoogleLogin from './components/google-login';
 
 type Props = {
     status?: string;
@@ -126,6 +127,7 @@ export default function Login({ status, canResetPassword, canRegister }: Props) 
                                     {processing && <Spinner />}
                                     {t('auth.login')}
                                 </Button>
+                                <GoogleLogin />
                             </div>
 
                             {/* Status */}

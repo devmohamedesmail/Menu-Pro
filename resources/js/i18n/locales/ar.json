@@ -188,7 +188,8 @@
         "passwords-must-match": "كلمات المرور يجب أن تتطابق",
         "confirm-password-required": "تأكيد كلمة المرور مطلوب",
         "store-name-required": "اسم المتجر مطلوب",
-        "country-required": "الدولة مطلوبة"
+        "country-required": "الدولة مطلوبة",
+         "google-login":" الدخول باستخدام جوجل "
     },
     "dashboard": {
         "title": " لوحه التحكم",
@@ -383,7 +384,9 @@
         "error_happened": " حدث خطا حاول مرة اخري ",
         "invalid-email": "البريد الإلكتروني غير صحيح",
         "is_required":"مطلوب",
-        "is_default":"افتراضي"
+        "is_default":"افتراضي",
+        "page-error":" حدث خطا من فضلك حاول مرة اخري ",
+        "go-back":"العودة للخلف"
     },
     "countries": {
         "title": " إدارة الدول ",
@@ -507,7 +510,8 @@
         "owner": "المالك",
         "created-at": "تاريخ الإنشاء",
         "manage-stores-desc": "عرض وإضافة وتحرير أو إزالة المتاجر بسهولة للحفاظ على منصتك منظمة ومحدثة.",
-        "confirm-delete-category": "هل أنت متأكد من حذف هذا القسم؟ لا يمكن التراجع عن هذا الإجراء."
+        "confirm-delete-category": "هل أنت متأكد من حذف هذا القسم؟ لا يمكن التراجع عن هذا الإجراء.",
+        "add-new-store":" اضافة متجر جديد "
     },
     "roles": {
         "title": "إدارة الأدوار",
@@ -634,7 +638,8 @@
         "confirm-delete-table": "هل أنت متأكد من حذف هذه الطاولة؟",
         "scan-to-order": "قم بمسح الباركود",
         "download": "تحميل",
-        "print": "طباعة"
+        "print": "طباعة",
+         "no-tables":"لم يتم إضافة طاولات"
     },
     "partners": {
         "title": "شركاؤنا",
@@ -738,7 +743,9 @@
     "orders": {
         "delivery": " توصيل بالخارج ",
         "table": " رقم الطاولة  ",
-        "order-recieved":" تم استلام طلب جديد "
+        "order-recieved":" تم استلام طلب جديد ",
+         "delivery-order":" طلب توصيل ",
+           "no-orders-found":" لا توجد طلبات حاليا "
     },
     "plans": {
         "create": "إنشاء باقة",

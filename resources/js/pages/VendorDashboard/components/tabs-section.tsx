@@ -4,8 +4,12 @@ import { LayoutDashboard, UtensilsCrossed, ListFilter, ShoppingBag, LayoutGrid }
 import { useTranslation } from 'react-i18next';
 import { router } from '@inertiajs/react';
 import { Store } from '@/types/menu';
-export default function TabsSection({store}:{store:Store}) {
-    const { t } = useTranslation();
+import useImport from '@/hooks/use-import';
+import useSelectedStore from '@/hooks/use-selected-store';
+export default function TabsSection({ store }: { store: Store }) {
+    const { t } = useImport();
+    const { getCurrentStore } = useSelectedStore();
+    const currentStore = getCurrentStore();
     return (
         <TabsList className="bg-white dark:bg-gray-800 p-1 border border-border shadow-sm rounded-lg h-auto">
             <TabsTrigger value="overview" className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary py-2.5 px-4 h-auto">
@@ -31,10 +35,10 @@ export default function TabsSection({store}:{store:Store}) {
 
             <TabsTrigger
                 value="#"
-                onClick={() => router.get(`/orders/store/page/${store.id}`)}
+                onClick={() => router.get(`/orders/store/page/${currentStore.id}`)}
                 className="data-[state=active]:bg-primary/10 data-[state=active]:text-primary py-2.5 px-4 h-auto">
                 <LayoutGrid className="w-4 h-4 mr-2" />
-                {t('dashboard.tables')}
+                {t('dashboard.orders')}
             </TabsTrigger>
         </TabsList>
     )

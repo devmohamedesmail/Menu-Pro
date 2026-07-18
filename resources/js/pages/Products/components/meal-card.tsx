@@ -2,13 +2,14 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Edit, Plus, Trash2 } from 'lucide-react'
-import { useTranslation } from 'react-i18next'
 import MealAttributeDialog from './meal-attribute-dialog'
 import MealDeleteDialog from './meal-delete-dialog'
 
+import useImport from '@/hooks/use-import'
+
 export default function MealCard({ meal, country, setEditingMeal, setMealDialogOpen, handleDeleteMeal, attributes }: any) {
-    const { t, i18n } = useTranslation()
-    const isArabic = i18n.language === 'ar'
+    const { t,isArabic } = useImport()
+   
     const [attrDialogOpen, setAttrDialogOpen] = useState(false)
     const [deleteDialogOpen, setdeleteDialogOpen] = useState(false)
     const [deleteItem, setDeleteItem] = useState(null)

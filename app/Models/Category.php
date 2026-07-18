@@ -15,13 +15,14 @@ class Category extends Model
         'name_en',
         'name_ar',
         'image',
+        'public_id',
         'position',
     ];
 
     /**
      * relation with meals
      */
-    public function meals()
+    public function products()
     {
         return $this->hasMany(Meal::class);
     }

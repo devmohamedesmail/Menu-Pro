@@ -14,6 +14,7 @@ class Table extends Model
         'name',
         'capacity',
         'qr_code',
+        'public_id'
     ];
 
     /**
