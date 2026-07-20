@@ -1,5 +1,4 @@
-import Footer from '@/components/landing/footer';
-import Header from '@/components/landing/header';
+
 import { Head, Link } from '@inertiajs/react';
 import {ArrowLeft} from 'lucide-react';
 import { useState } from 'react';
@@ -7,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import Hero from '@/components/checkout/hero';
 import PlanSummary from '@/components/checkout/plan-summary';
 import PaymentMethods from '@/components/checkout/payment-methods';
+import PublicLayout from '@/layouts/public-layout';
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface Plan {
     id: number;
@@ -35,10 +35,8 @@ export default function Checkout({ plan }: { plan: Plan }) {
 
 
     return (
-        <div className="min-h-screen bg-background">
-            <Head title={t('checkout.title')} />
-            <Header />
-            <Hero />
+       <PublicLayout>
+         <Hero />
 
             <main className="max-w-5xl mx-auto px-4 sm:px-6 py-12">
                 <Link
@@ -58,8 +56,6 @@ export default function Checkout({ plan }: { plan: Plan }) {
                     />
                 </div>
             </main>
-
-            <Footer />
-        </div>
+       </PublicLayout>
     );
 }

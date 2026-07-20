@@ -1,0 +1,1 @@
+import{c as s,j as a}from"./app-kGwYUa0z.js";import{u as c}from"./useTranslation-BoVRGzZt.js";/* empty css            */function u(o){const t=s.c(2),{meal:n}=o,{i18n:r}=c(),i=r.language==="ar"?n.description_ar:n.description_en;let e;return t[0]!==i?(e=a.jsx("div",{children:i}),t[0]=i,t[1]=e):e=t[1],e}export{u as default};

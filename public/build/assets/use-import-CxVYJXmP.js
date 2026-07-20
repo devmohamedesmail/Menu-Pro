@@ -1,0 +1,1 @@
+import{c as e}from"./app-kGwYUa0z.js";import{u as i}from"./useTranslation-BoVRGzZt.js";function u(){const t=e.c(4),{t:s,i18n:o}=i(),n=o.language==="ar";let r;return t[0]!==o||t[1]!==n||t[2]!==s?(r={t:s,i18n:o,isArabic:n},t[0]=o,t[1]=n,t[2]=s,t[3]=r):r=t[3],r}export{u};

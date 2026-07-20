@@ -1,15 +1,14 @@
-import Header from '@/components/landing/header';
-import PlanItem from '@/components/landing/plan-item';
-import VisitorLayout from '@/layouts/visitor-layout';
+
+import PublicLayout from '@/layouts/public-layout';
 import { Head } from '@inertiajs/react'
-import React from 'react'
+
 import { useTranslation } from 'react-i18next'
 
 export default function PlansPage({ plans }: any) {
     const { t } = useTranslation();
     return (
 
-        <VisitorLayout>
+        <PublicLayout>
             <Head title={t('plans.title')} />
             <section className="relative py-24 overflow-hidden ">
 
@@ -31,14 +30,14 @@ export default function PlansPage({ plans }: any) {
                     </div>
 
                     {/* Plans Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                         {plans.map((plan: any, index: any) => (
                             <PlanItem plan={plan} index={index} />
 
                         ))}
-                    </div>
+                    </div> */}
                 </div>
             </section>
-        </VisitorLayout>
+        </PublicLayout>
     )
 }

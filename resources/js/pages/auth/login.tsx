@@ -127,7 +127,7 @@ export default function Login({ status, canResetPassword, canRegister }: Props) 
                                     {processing && <Spinner />}
                                     {t('auth.login')}
                                 </Button>
-                                <GoogleLogin />
+                                {/* <GoogleLogin /> */}
                             </div>
 
                             {/* Status */}

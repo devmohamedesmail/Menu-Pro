@@ -1,0 +1,1 @@
+import{c as i,j as a}from"./app-kGwYUa0z.js";import{u as l}from"./useTranslation-BoVRGzZt.js";/* empty css            */function p(o){const t=i.c(2),{meal:s}=o,{i18n:r}=l(),n=r.language==="ar"?s.name_ar:s.name_en;let e;return t[0]!==n?(e=a.jsx("div",{children:a.jsx("h5",{className:"font-bold text-lg",children:n})}),t[0]=n,t[1]=e):e=t[1],e}export{p as default};

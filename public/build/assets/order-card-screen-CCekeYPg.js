@@ -1,0 +1,1 @@
+import{c as t,j as o}from"./app-kGwYUa0z.js";/* empty css            */function i(c){const r=t.c(1);let e;return r[0]===Symbol.for("react.memo_cache_sentinel")?(e=o.jsx("div",{children:"order-card-screen"}),r[0]=e):e=r[0],e}export{i as default};

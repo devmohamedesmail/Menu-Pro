@@ -1,5 +1,3 @@
-import Footer from '@/components/landing/footer';
-import Header from '@/components/landing/header';
 import { Settings } from '@/types/settings';
 import { PageProps } from '@inertiajs/core';
 import { usePage } from '@inertiajs/react';
@@ -15,6 +13,8 @@ import {
     Mail,
     MapPin,
 } from 'lucide-react';
+import PublicLayout from '@/layouts/public-layout';
+
 
 interface AppPageProps extends PageProps {
     settings: Settings;
@@ -73,11 +73,9 @@ export default function PrivacyPolicy() {
     });
 
     return (
-        <div className="min-h-screen bg-gray-50 flex flex-col">
-            <Header />
+      <PublicLayout>
 
-            {/* Spacer for fixed header */}
-            <div className="h-28" />
+           <div className="h-28" />
 
             <main className="grow">
                 {/* Hero Section */}
@@ -180,8 +178,6 @@ export default function PrivacyPolicy() {
                     </div>
                 </div>
             </main>
-
-            <Footer />
-        </div>
+      </PublicLayout>
     );
 }

@@ -63,10 +63,10 @@ export default function Hero() {
                             <div className="absolute inset-0 bg-linear-to-r from-primary to-primary/80 opacity-0 group-hover:opacity-100 transition-opacity" />
                         </Link>
 
-                        <Link 
+                        {/* <Link 
                         href={`/store/menu/page/with/qrcode/${'مطعم-الطيب'}/${'2'}/table/${'2'}`} className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 border-2 border-border rounded-xl font-semibold text-sm sm:text-base hover:border-primary/50 hover:bg-primary/5 transition-all">
                             {t('landing.hero.cta_secondary')} 
-                        </Link>
+                        </Link> */}
                       
                     </div>
                 </div>
