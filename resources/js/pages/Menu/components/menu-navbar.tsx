@@ -61,8 +61,8 @@ export default function MenuNavbar({ store, table }: { store: Store, table: any 
         }
     })
     return (
-        <div className='bg-white dark:bg-black py-5 px-3 sticky top-0 shadow-lg border-b-2 z-50'>
-            <div className="container mx-auto flex flex-row justify-between">
+        <div className='bg-white dark:bg-black py-2 px-3 sticky top-0 shadow-lg border-b-2 z-50'>
+            <div className="container mx-auto flex flex-row justify-between items-center">
                 <div className='flex flex-row gap-3'>
                     <ThemeToggleIcon />
                     <LangToggleIcon />

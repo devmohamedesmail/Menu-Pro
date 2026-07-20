@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('public_image_id')->nullable();
             $table->longText('description')->nullable();
             $table->longText('banner')->nullable();
-             $table->string('public_banner_id')->nullable();
+            $table->string('public_banner_id')->nullable();
             $table->boolean('is_active')->default(false);
             $table->boolean('is_featured')->default(false);
             $table->boolean('is_verified')->default(false);

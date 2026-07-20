@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { LayoutGrid, List } from 'lucide-react';
 import MealCardView from './meal-card/meal-card-view';
 import MealListView from './meal-card/meal-list-view';
+import NoProducts from './no-products';
 
 type ViewMode = 'grid' | 'list';
 export default function MealsSection({ meals, country, filterMeals }: any) {
@@ -41,14 +42,27 @@ export default function MealsSection({ meals, country, filterMeals }: any) {
         </div>
       </div>
 
-      <div className={
+      {/* <div className={
         viewMode === 'grid'
           ? 'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'
           : 'flex flex-col gap-3'
       }>
-        {filterMeals.length > 0 ? (<>{filterMeals.map((meal: any) => viewMode === 'grid' ? (<MealCardView key={meal.id} meal={meal} country={country} />) : (<MealListView key={meal.id} meal={meal} country={country} />))}</>):(<p>no meals</p>)}
+        {filterMeals.length > 0 ? (<>{filterMeals.map((meal: any) => viewMode === 'grid' ? (<MealCardView key={meal.id} meal={meal} country={country} />) : (<MealListView key={meal.id} meal={meal} country={country} />))}</>):(<NoProducts />)}
+        
+      </div> */}
+
+      {filterMeals.length > 0 ? (
+          <div className={
+        viewMode === 'grid'
+          ? 'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'
+          : 'flex flex-col gap-3'
+      }>
+         <>
+          {filterMeals.map((meal: any) => viewMode === 'grid' ? (<MealCardView key={meal.id} meal={meal} country={country} />) : (<MealListView key={meal.id} meal={meal} country={country} />))}
+          </>
         
       </div>
+      ):(<NoProducts />)}
     </div>
   )
 }

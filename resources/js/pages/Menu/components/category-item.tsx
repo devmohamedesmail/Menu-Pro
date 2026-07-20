@@ -13,7 +13,7 @@ export default function CategoryItem({ onClick, title, image }: any) {
                     <img
                         src={image}
                         alt={title}
-                        className="w-full h-40 object-cover transition-transform duration-500 hover:scale-110"
+                        className="w-full h-28 object-cover transition-transform duration-500 hover:scale-110"
                     />
                 </div>
 

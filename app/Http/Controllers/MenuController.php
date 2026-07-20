@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\MenuService;
 use App\Services\CountryService;
 use App\Services\StoreService;
-
 use Inertia\Inertia;
 
 class MenuController extends Controller
@@ -12,7 +12,8 @@ class MenuController extends Controller
 
     public function __construct(
         protected StoreService $storeService,
-        protected CountryService $countryService
+        protected CountryService $countryService,
+        protected MenuService $menuService
     ) {}
 
 
@@ -22,7 +23,7 @@ class MenuController extends Controller
     {
         
        try {
-         $storeData = $this->storeService->GetStoreMenu($slug, $store_id, $table);
+         $storeData = $this->menuService->GetStoreMenu($slug, $store_id, $table);
         
         return Inertia::render("Menu/index", $storeData);
        } catch (\Throwable $th) {

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,11 +21,11 @@ class Category extends Model
     ];
 
     /**
-     * relation with meals
+     * relation with products
      */
     public function products()
     {
-        return $this->hasMany(Meal::class);
+        return $this->hasMany(Product::class);
     }
 /**
  * relation with store

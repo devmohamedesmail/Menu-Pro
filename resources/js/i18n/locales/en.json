@@ -618,7 +618,9 @@
         "send":"Send Your Request",
         "is_featured":"Is Featured",
         "featured":"Featured",
-        "is_simple":"Is Simple"
+        "is_simple":"Is Simple",
+        "no_products_found":"No Products Found",
+        "no_products_found_description":"Try adjusting your search or category filter"
     },
     "tables": {
         "add-table": "Add Table",

@@ -20,7 +20,11 @@ return new class extends Migration
             $table->longText('keywords_en')->nullable();
             $table->longText('keywords_ar')->nullable();
             $table->longText('logo')->nullable();
+            $table->longText('dark_logo')->nullable();
+            $table->string('public_logo_id')->nullable();
+            $table->string('public_dark_logo_id')->nullable();
             $table->longText('favicon')->nullable();
+            $table->string('public_favicon_id')->nullable();
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->longText('address')->nullable();

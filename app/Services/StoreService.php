@@ -62,7 +62,7 @@ class StoreService
             );
 
             $store->banner = $bannerResult["url"] ?? null;
-            $store->banner_public_id = $bannerResult["public_id"] ?? null;
+            $store->public_banner_id = $bannerResult["public_id"] ?? null;
         }
 
         $vendorRole = Role::where('name', 'vendor')->firstOrFail();
@@ -138,20 +138,7 @@ class StoreService
 
 
 
-    public function GetStoreMenu($slug, $store_id, $table = null)
-    {
-        $store = Store::where('id', $store_id)->first();
-        $categories = $store->categories;
-        $country = $store->country()->first();
-        $meals = $store->meals()->with(["category", "attributes.attributeValues"])->paginate(10);
-        return [
-            "store" => $store,
-            "country" => $country,
-            "categories" => $categories,
-            "meals" => $meals,
-            "table" => $table
-        ];
-    }
+   
 
 
 

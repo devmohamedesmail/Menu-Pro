@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { router } from '@inertiajs/react'
-import { useTranslation } from 'react-i18next'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -35,7 +34,7 @@ export default function CategoryDialog({ open, onClose, category }: Props) {
     const currentStore = getCurrentStore();
 
     const validationSchema = Yup.object({
-        name_en: Yup.string().required(t('common.required-field')),
+        // name_en: Yup.string().required(t('common.required-field')),
         name_ar: Yup.string().required(t('common.required-field')),
         position: Yup.number().min(0, t('common.must-be-positive')),
     })

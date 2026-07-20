@@ -8,17 +8,14 @@ import {
   Phone,
   Mail,
   Edit,
-  Share,
   Share2,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from '@inertiajs/react';
-import { usePage } from '@inertiajs/react';
-import { useTranslation } from 'react-i18next';
-import { router } from '@inertiajs/react';
 import ThemeToggle from '../../../components/ui/theme-toggle';
 import LangToggle from '../../../components/ui/lang-toggle';
 import AuthMenu from '../../../components/shared/auth-menu';
+import useImport from '@/hooks/use-import';
 
 
 function StoreBannerPlaceholder() {
@@ -30,12 +27,7 @@ function StoreBannerPlaceholder() {
   )
 }
 export default function Header({ store }: any) {
-  const { auth }: any = usePage().props;
-  const { t } = useTranslation();
-
-  const handleLogout = () => {
-    router.post(route('logout'));
-  };
+  const { t } = useImport();
   return (
     <div className="relative bg-white dark:bg-gray-800 border-b border-border shadow-sm">
       {/* Banner Background */}
